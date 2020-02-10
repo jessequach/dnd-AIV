@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%- include('partials/header.ejs') %>
+
+    <title>Home</title>
+</head>
+
+<body>
+
+    <div class="card" style="width: 18rem;">
+
+        <!-- Name, Class, Level, Race
+        Stats, Skills (In-depth available) -->
+
+        <p class="character-stats">
+            <%= _name %> <br />
+            <%= _class %> <br />
+            Lvl: <%= _level %> <br />
+            <%= _race %> <br />
+        </p>
+
+        <!-- Character Stats -->
+
+        <!-- Character Image -->
+        <div class="character-img-parent">
+            <img class="card-img-top" src="/public/images/character.jpg">
+        </div>
+
+        <!-- Character Description -->
+        <div class="card-body">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col">
+                        <h5>Stats</h5>
+                    </div>
+                    <div class="col">
+                        <h5>Skills</h5>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <%= _stats %>
+                    </div>
+                    <div class="col">
+                        <%= _skills %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('partials/scripts.ejs') %>
+</body>
