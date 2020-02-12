@@ -1,9 +1,4 @@
-
-img {
-    border: 1px solid black;
-}
-
-p {
+div {
     font-family: 'Oswald', sans-serif;  
 }
 
@@ -12,13 +7,39 @@ h5 {
     font-family: 'Oswald', sans-serif;
 }
 
+/* Override reboot.scss margin on p-tags */
+p {
+    margin-bottom: 0;
+    color: white;
+}
+
+img {
+    border: 1px solid gray;
+}
+
+.progress {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: .5vw;
+    margin-top: .25vw;
+}
+
+.card {
+    position: relative;
+    margin-left: 3vw;
+    margin-top: 3vw;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(16,18,33,1) 100%);
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,.5);
+}
+
 .character-img-parent {
     margin-left: 2vw;
     margin-right: 2vw;
 }
 
 .character-stats {
-    padding-top: 2vw;
+    padding-top: .5vw;
     text-align: center;
     font-family: 'MedievalSharp', cursive;  
 }
@@ -26,7 +47,18 @@ h5 {
 .col {
     word-break: break-word;
 }
+.float-bar-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 0px;
+    margin-top: 135px;
+    width: 26px;
+}
 
+.float-bar-right > .btn {
+    margin-top: .25vw;
+}
 
 /* .wrapper {
     display: flex;
