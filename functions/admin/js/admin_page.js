@@ -223,18 +223,21 @@ function getStatModifier(stat) {
     for (let n = -5; n <= 10; n++) {
         modifier.push(n);
     }
-    let statModifier = {1: -5, 30: 10}
-    for (let s = 1, m = 1; s < statScore.length - 1; s+=2, m++) {
+    let statModifier = { 1: -5, 30: 10 }
+    for (let s = 1, m = 1; s < statScore.length - 1; s += 2, m++) {
         statModifier[statScore[s]] = modifier[m]
-        statModifier[statScore[s+1]] = modifier[m]
+        statModifier[statScore[s + 1]] = modifier[m]
     }
+
+    // floor(stat score - 10 / 2)
+
     return statModifier[stat]
 }
 
 function getBaseHP() {
     const hitDice = getHitDice()
-    const CONSTITUTION = document.getElementById('input_con').value
-    return hitDice + getStatModifier(CONSTITUTION)
+    const CONSTITUTION_MODIFIER = document.getElementById('input_con').value
+    return hitDice + getStatModifier(CONSTITUTION_MODIFIER)
 }
 
 // Creates character
