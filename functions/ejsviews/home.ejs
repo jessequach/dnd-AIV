@@ -16,23 +16,22 @@
     <% for (let char of characters) {%>
     <div class="card" style="width: 18rem;">
 
-        <p class="character-stats">
+        <p class="character-desc">
             <%= char.data.name %> <br />
             <%= char.data.alignment %> <br />
             <%= char.data.race %>
             <%= char.data._class %> <br />
             LVL: <%= char.data.level %>
             EXP: <%= char.data.exp %> <br />
-            Hitdice: 1d<%= char.data.hitdice %>
         </p>
 
-        <div class="progress" style="margin-left: 1vw;">
+        <div class="progress">
             <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
-                <%= char.data.hp %> / <%= char.data.hp %> 
+                HP: <%= char.data.hp %> / <%= char.data.hp %>
             </div>
         </div>
 
-        <div class="float-bar-right">
+        <div class="float-bar-tabs">
             <button type="button" class="btn btn-primary">Features</button>
             <button type="button" class="btn btn-primary">Equipment</button>
             <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
@@ -44,26 +43,26 @@
         <div class="character-img-parent">
             <img class="card-img-top" src="<%= char.data.image_url %>">
         </div>
-        
+
         <div class="card-body">
             <div class="container">
                 <div class="row" style="text-align: center;">
                     <div class="col">
                         <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseStats" aria-expanded="false" aria-controls="collapseStats">
+                            data-target="#collapseStats_<%= char.id %>" aria-expanded="false" aria-controls="collapseStats_<%= char.id %>">
                             Stats
                         </button>
                     </div>
                     <div class="col">
                         <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
+                            data-target="#collapseSkills_<%= char.id %>" aria-expanded="false" aria-controls="collapseSkills_<%= char.id %>">
                             Skills
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseStats">
+                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseStats_<%= char.id %>">
                             <p>
                                 <% for (let stat in char.data.stats) { %>
                                 <%= stat %>
@@ -74,22 +73,26 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseSkills">
-                            <p><%= char.data.skills %></p>
+                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseSkills_<%= char.id %>">
+                            <!-- <p><%= char.data.skills %></p> -->
+                            <% for (let skill in char.data.skills) { %>
+                                <p></p>
+                                <%= skill %>
+                            <% } %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="float-bar-dice">
+            <img style="width: 175%" src="public/images/dice.png" />
+        </div>
+        <div class="float-bar-hitdice">
+            <p>1d<%= char.data.hitdice %></p>
+        </div>
     </div>
+
     <% } %>
 
     <%- include('partials/scripts.ejs') %>
 </body>
-
-<script>
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
-</script>
