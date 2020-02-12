@@ -13,51 +13,80 @@
 
 <body>
 
+    <% for (let char of characters) {%>
     <div class="card" style="width: 18rem;">
 
-        <!-- Name, Class, Level, Race
-        Stats, Skills (In-depth available) -->
-
         <p class="character-stats">
-            <%= _name %> <br />
-            <%= _class %> <br />
-            Lvl: <%= _level %> <br />
-            <%= _race %> <br />
+            <%= char.data.name %> <br />
+            <%= char.data.alignment %> <br />
+            <%= char.data.race %>
+            <%= char.data._class %> <br />
+            LVL: <%= char.data.level %>
+            EXP: <%= char.data.exp %> <br />
         </p>
 
-        <!-- Character Stats -->
-
-        <!-- Character Image -->
-        <div class="character-img-parent">
-            <img class="card-img-top" src="/public/images/character.jpg">
-        </div>
-
-        <!-- Character Description -->
-        <div class="card-body">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col">
-                        <h5>Stats</h5>
-                    </div>
-                    <div class="col">
-                        <h5>Skills</h5>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <%= _stats %>
-                    </div>
-                    <div class="col">
-                        <%= _skills %>
-                    </div>
-                </div>
-
+        <div class="progress" style="margin-left: 1vw;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
             </div>
         </div>
-    </div>
 
+        <div class="float-bar-right">
+            <button type="button" class="btn btn-primary">Features</button>
+            <button type="button" class="btn btn-primary">Equipment</button>
+            <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
+                data-content="test test">Background</button>
+            <button type="button" class="btn btn-primary">{}</button>
+            <button type="button" class="btn btn-primary">{}</button>
+        </div>
+
+        <div class="character-img-parent">
+            <img class="card-img-top" src="<%= char.data.image_url %>">
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row" style="text-align: center;">
+                    <div class="col">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                            data-target="#collapseStats" aria-expanded="false" aria-controls="collapseStats">
+                            Stats
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                            data-target="#collapseSkills" aria-expanded="false" aria-controls="collapseSkills">
+                            Skills
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseStats">
+                            <p>
+                                <% for (let stat in char.data.stats) { %>
+                                <%= stat %>
+                                <%= char.data.stats[stat] %>
+                                <br />
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseSkills">
+                            <p><%= char.data.skills %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <% } %>
 
     <%- include('partials/scripts.ejs') %>
 </body>
+
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
