@@ -15,6 +15,7 @@ p {
 
 img {
     border: 1px solid gray;
+    object-fit: cover;
 }
 
 .progress {
@@ -59,17 +60,3 @@ img {
 .float-bar-right > .btn {
     margin-top: .25vw;
 }
-
-/* .wrapper {
-    display: flex;
-}
-
-.div-left {
-    flex: 0 0 80%;
-}
-
-.div-right {
-    flex: 1;
-} */
-
-/* 'Oswald', sans-serif && 'MedievalSharp', cursive */

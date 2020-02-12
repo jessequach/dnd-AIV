@@ -23,10 +23,12 @@
             <%= char.data._class %> <br />
             LVL: <%= char.data.level %>
             EXP: <%= char.data.exp %> <br />
+            Hitdice: 1d<%= char.data.hitdice %>
         </p>
 
         <div class="progress" style="margin-left: 1vw;">
             <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                <%= char.data.hp %> / <%= char.data.hp %> 
             </div>
         </div>
 
@@ -42,6 +44,7 @@
         <div class="character-img-parent">
             <img class="card-img-top" src="<%= char.data.image_url %>">
         </div>
+        
         <div class="card-body">
             <div class="container">
                 <div class="row" style="text-align: center;">
