@@ -21,7 +21,7 @@ function frontendHandler(request, response) {
     response.sendFile(__dirname + '/admin/admin.html')
 }
 
-app.get('/login', frontendHandler);
+app.get('/admin', frontendHandler);
 
 // ============================ //
 // Start of backend programming
@@ -40,11 +40,12 @@ const firebaseConfig = {
     appId: "1:367012902540:web:c93ed50786ab627df92da9",
     measurementId: "G-GHBV4TW7E7"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-app.get('/', (request, response) => {
+const Constants = require('./myconstants.js')
+
+app.get('/', async (request, response) => {
     const obj = {
         _name: 'Berrik Rapidfist',
         _class: 'Monk',
@@ -55,5 +56,17 @@ app.get('/', (request, response) => {
         _stats: ['hp', 'str', 'dex', 'con', 'int', 'wis', 'cha'],
         _skills: ['to','be','cont...'],
     }
-    response.render('home', obj)
+
+    const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
+    try {
+        let characters = []
+        const snapshots = await coll.orderBy("name").get()
+        snapshots.forEach(doc => {
+            characters.push({ id: doc.id, data: doc.data() })
+        })
+        response.render('home', {obj: obj, characters} )
+    } catch (e) {
+        response.send(e)
+    }
+
 })
