@@ -1,0 +1,12 @@
+h1 {
+    font-family: 'MedievalSharp', cursive;
+    text-align: center;
+}
+
+div {
+    font-family: 'Oswald', sans-serif;
+}
+
+.input-group {
+    margin-bottom: 2vw;
+}
