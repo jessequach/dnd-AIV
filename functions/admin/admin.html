@@ -1,23 +1,80 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Index.html</title>
-  </head>
-  <body>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    Index.html is being read.
+  <link rel="stylesheet" href="css/admin.css" />
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+  <!-- MedievalSharp & Oswald Font -->
+  <link href="https://fonts.googleapis.com/css?family=MedievalSharp|Oswald&display=swap" rel="stylesheet">
+  
+  <title>Index.html</title>
+</head>
+
+<body>
+  <h1 class="display-5" style="background-color: blue; color: white;">Admin Page</h1>
+  <div class="jumbotron" id="page_content"></div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.6.2/firebase-storage.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    firebaseConfig = {
+      apiKey: "AIzaSyDWZHXWup8FwWqnIYYywPEATEasY5RgobQ",
+      authDomain: "dnd-aiv.firebaseapp.com",
+      databaseURL: "https://dnd-aiv.firebaseio.com",
+      projectId: "dnd-aiv",
+      storageBucket: "dnd-aiv.appspot.com",
+      messagingSenderId: "367012902540",
+      appId: "1:367012902540:web:c93ed50786ab627df92da9",
+      measurementId: "G-GHBV4TW7E7"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script src="js/admin_page.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    const pageContent = document.getElementById('page_content')
+    const STORAGE_CHARACTERS = 'characters/'
+    const COLLECTION_CHARACTERS = 'characters'
+
+
+    window.onload = function () {
+      const currentPath = window.location.pathname
+      if (currentPath === '/admin') {
+        admin_page()
+      } else {
+        window.location.href = '/'
+      }
+    }
+
+  </script>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
