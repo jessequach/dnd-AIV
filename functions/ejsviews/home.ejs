@@ -13,86 +13,111 @@
 
 <body>
 
-    <% for (let char of characters) {%>
-    <div class="card" style="width: 18rem;">
+    <div class="row row-cols-5">
+        <% for (let char of characters) {%>
+        <div class="col">
+            <div id="card_<%= char.id %>" class="card" style="width: 18rem;">
 
-        <p class="character-desc">
-            <%= char.data.name %> <br />
-            <%= char.data.alignment %> <br />
-            <%= char.data.race %>
-            <%= char.data._class %> <br />
-            LVL: <%= char.data.level %>
-            EXP: <%= char.data.exp %> <br />
-        </p>
+                <p class="character-desc">
+                    <%= char.data.name %> <br />
+                    <%= char.data.alignment %> <br />
+                    <%= char.data.race %>
+                    <%= char.data._class %> <br />
+                    LVL: <%= char.data.level %>
+                    EXP: <%= char.data.exp %> <br />
+                </p>
 
-        <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
-                HP: <%= char.data.hp %> / <%= char.data.hp %>
-            </div>
-        </div>
-
-        <div class="float-bar-tabs">
-            <button type="button" class="btn btn-primary">Features</button>
-            <button type="button" class="btn btn-primary">Equipment</button>
-            <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
-                data-content="test test">Background</button>
-            <button type="button" class="btn btn-primary">{}</button>
-            <button type="button" class="btn btn-primary">{}</button>
-        </div>
-
-        <div class="character-img-parent">
-            <img class="card-img-top" src="<%= char.data.image_url %>">
-        </div>
-
-        <div class="card-body">
-            <div class="container">
-                <div class="row" style="text-align: center;">
-                    <div class="col">
-                        <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseStats_<%= char.id %>" aria-expanded="false" aria-controls="collapseStats_<%= char.id %>">
-                            Stats
-                        </button>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseSkills_<%= char.id %>" aria-expanded="false" aria-controls="collapseSkills_<%= char.id %>">
-                            Skills
-                        </button>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                        HP: <%= char.data.hp %> / <%= char.data.hp %>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseStats_<%= char.id %>">
-                            <p>
-                                <% for (let stat in char.data.stats) { %>
-                                <%= stat %>
-                                <%= char.data.stats[stat] %>
-                                <br />
-                                <% } %>
-                            </p>
+
+                <div class="float-bar-tabs">
+                    <button type="button" class="btn btn-primary">Features</button>
+                    <button type="button" class="btn btn-primary">Equipment</button>
+                    <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
+                        data-content="test test">Background</button>
+                    <button type="button" class="btn btn-primary">{}</button>
+                    <button type="button" class="btn btn-primary">{}</button>
+                </div>
+
+                <div class="character-img-parent">
+                    <img class="card-img-top" src="<%= char.data.image_url %>">
+                </div>
+
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row" style="text-align: center;">
+                            <div class="col">
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapseStats_<%= char.id %>" aria-expanded="false"
+                                    aria-controls="collapseStats_<%= char.id %>">
+                                    Stats
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapseSkills_<%= char.id %>" aria-expanded="false"
+                                    aria-controls="collapseSkills_<%= char.id %>">
+                                    Skills
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div style="margin-top: .5vw; text-align: center;" class="collapse" id="collapseSkills_<%= char.id %>">
-                            <!-- <p><%= char.data.skills %></p> -->
-                            <% for (let skill in char.data.skills) { %>
-                                <p></p>
-                                <%= skill %>
-                            <% } %>
+                        <div class="row">
+                            <div class="col">
+                                <div style="text-align: center;" class="collapse" id="collapseStats_<%= char.id %>">
+                                    <p>
+                                        <% for (let stat in char.data.stats) { %>
+                                        <%= stat %>
+                                        <%= char.data.stats[stat] %>
+                                        <br />
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div style="text-align: center;" class="collapse" id="collapseSkills_<%= char.id %>">
+                                    <p>
+                                        <% for (let skill in char.data.skills) { %>
+                                        <%= char.data.skills[skill] %>
+                                        <br />
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="float-bar-dice">
+                    <img style="width: 175%" src="public/images/dice.png" />
+                </div>
+                <div class="float-bar-hitdice">
+                    <p>1d<%= char.data.hitdice %></p>
+                </div>
+
             </div>
         </div>
-        <div class="float-bar-dice">
-            <img style="width: 175%" src="public/images/dice.png" />
+        <% } %>
+    </div>
+
+    <!--  -->
+
+    <div class="container">
+        <div class="book-bg">
+            <img style="max-width: 100%" src="/public/images/open_book.png" alt="">
         </div>
-        <div class="float-bar-hitdice">
-            <p>1d<%= char.data.hitdice %></p>
+
+        <div class="pages">
+            <div class="page-1">
+                Yo
+            </div>
+            <div class="page-2">
+                Oy
+            </div>
         </div>
     </div>
 
-    <% } %>
-
+    <!--  -->
     <%- include('partials/scripts.ejs') %>
 </body>
