@@ -102,22 +102,36 @@
     </div>
 
     <!--  -->
-
-    <div class="container">
-        <div class="book-bg">
-            <img style="max-width: 100%" src="/public/images/open_book.png" alt="">
+    <div class="dim-screen">
+    </div>
+    <div class="book-wrapper">
+        <div class="book-cover">
+            <img src="/public/images/open_book.png" alt="">
         </div>
 
-        <div class="pages">
-            <div class="page-1">
-                Yo
-            </div>
-            <div class="page-2">
-                Oy
+        <div class="book">
+            <div class="pages">
+                <div class="page-num-1">
+                    Test Message Page 1
+                </div>
+                <div class="page-num-2">
+                    Test Message Page 2
+                </div>
             </div>
         </div>
     </div>
 
     <!--  -->
     <%- include('partials/scripts.ejs') %>
+
 </body>
+
+<script>
+    $(document).ready(
+        function () {
+            $('.switch')
+        }
+    )
+</script>
+
+</html>
