@@ -3354,8 +3354,16 @@ $.findPos = findPos;
 // How page turning animation is handled
 
 $(window).ready(function() {
+
+  let pageWidth = $('.book').width() * .85
+  let pageHeight = $('.book').height() * .85
+
+  console.log(pageWidth, pageHeight)
+
   $('.pages').turn({
     duration: 1500,
+    width: pageWidth,
+    height: pageHeight,
   //  acceleration: true,
   //  display: 'single',
    // autoCenter: true,
