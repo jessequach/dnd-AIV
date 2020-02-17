@@ -1,3 +1,7 @@
+.row {
+    margin-right: 0;
+}
+
 div {
     font-family: 'Oswald', sans-serif;  
 }
@@ -81,45 +85,44 @@ p {
     margin-bottom: -2.5%;
 }
 
+/* Hide Card for Book Test */
+.card {
+    /* display: none; */
+}
+
 /* Book */
 
-.book-bg img {
+.dim-screen {
+    position: fixed;
+    background: black;
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.book-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.book-wrapper img {
     filter: drop-shadow(15px 5px 5px black)
 }
 
-.pages-container {
-    position: relative;
-    top: 69%;
-    left: 28%;
+.book {
+    position: absolute;
+    top: 10%;
+    left: 14%;
+    height: 85%;
+    width: 85%;
 }
 
 .pages [class^="page-num-"] {
 	background-image: url("https://img00.deviantart.net/cbb9/i/2005/258/c/4/paper_texture_v5_by_bashcorpo.jpg");
-   background-size: auto 100%;
-  position: relative;
+    background-size: auto 200%;
+    position: relative;
 }
-
-.pages-content {
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: table;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10%;
-}
-
-.content-inner {
-    text-align: center;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-
-.book-wrapper {
- user-select: none;
-}
-
