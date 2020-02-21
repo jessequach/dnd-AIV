@@ -102,27 +102,51 @@ p {
     height: 100%;
 }
 
-.book-wrapper {
+.book {
     position: absolute;
-    top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.book-wrapper img {
+.book img {
     filter: drop-shadow(15px 5px 5px black)
 }
 
-.book {
+.book-popup {
     position: absolute;
-    top: 10%;
-    left: 14%;
-    height: 85%;
-    width: 85%;
+    display: none;
+    z-index: 100;
+    top: 50%;
+    left: 50%;
 }
 
-.pages [class^="page-num-"] {
-	background-image: url("https://img00.deviantart.net/cbb9/i/2005/258/c/4/paper_texture_v5_by_bashcorpo.jpg");
-    background-size: auto 200%;
-    position: relative;
+.page {
+    position: absolute;
+    width: 41%;
+    top: 5%;
+    left: 51%;
+    height: 85%;
+    border-style: double;
 }
+
+.page-front,.page-back {
+    position: absolute;
+    backface-visibility: hidden;
+    transition: 1s;
+    width: 100%;
+    height: 100%;
+}
+
+.page .page-back {
+    transform: rotateY(180deg);
+}
+
+.page.flip .page-back {
+    transform: rotateY(0deg);
+}
+
+.page.flip .page-front {
+    transform: rotateY(-180deg);
+}
+
+
+

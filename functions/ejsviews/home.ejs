@@ -17,7 +17,6 @@
         <% for (let char of characters) {%>
         <div class="col">
             <div id="card_<%= char.id %>" class="card" style="width: 18rem;">
-
                 <p class="character-desc">
                     <%= char.data.name %> <br />
                     <%= char.data.alignment %> <br />
@@ -34,7 +33,7 @@
                 </div>
 
                 <div class="float-bar-tabs">
-                    <button type="button" class="btn btn-primary">Features</button>
+                    <button id="features_<%= char.id %>" type="button" class="btn btn-primary" onclick="openFeatures(id)">Features</button>
                     <button type="button" class="btn btn-primary">Equipment</button>
                     <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
                         data-content="test test">Background</button>
@@ -98,28 +97,27 @@
 
             </div>
         </div>
+
+        <div id="book_<%= char.id %>"class="book-popup">
+            <div class="dim-screen"></div>
+            <div class="book">
+                <div class="book-bg"><img src="/public/images/open_book.png" alt=""></div>
+                <div class="page">
+                    <div class="page-front"><p style="margin-left: 2%"><br/>This is page 1</p></div>
+                    <div class="page-back"><p style="margin-left: 2%"><br/>This is page 2</p></div>
+                </div>
+                <!-- <div class="page">
+                    <div class="page-front"><p>This is page 3</p></div>
+                    <div class="page-back"><p>This is page 4</p></div>
+                </div> -->
+            </div>
+        </div>
         <% } %>
     </div>
 
     <!--  -->
-    <div class="dim-screen">
-    </div>
-    <div class="book-wrapper">
-        <div class="book-cover">
-            <img src="/public/images/open_book.png" alt="">
-        </div>
 
-        <div class="book">
-            <div class="pages">
-                <div class="page-num-1">
-                    Test Message Page 1
-                </div>
-                <div class="page-num-2">
-                    Test Message Page 2
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!--  -->
     <%- include('partials/scripts.ejs') %>
@@ -127,11 +125,13 @@
 </body>
 
 <script>
-    $(document).ready(
-        function () {
-            $('.switch')
-        }
-    )
+
+$(document).ready(function (){
+    $('.page').click(function() {
+        $(this).toggleClass('flip')
+    })
+})
+
 </script>
 
 </html>
