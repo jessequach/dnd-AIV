@@ -74,6 +74,10 @@
     transform: scaleX(-1)
 }
 
+.back .page-title {
+    transform: scaleX(-1)
+}
+
 .page.flipped {
     transform: rotateY(-180deg);
 }
@@ -86,7 +90,12 @@
     z-index: 1;
 }
 
-.classname {
+.page-content {
+    font-family: 'Oswald', sans-serif;
+    padding-left: 2%;
+}
+
+.page-title {
     font-family: 'MedievalSharp', cursive;
     font-size: 200%;
     text-align: center;

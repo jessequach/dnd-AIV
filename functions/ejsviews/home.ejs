@@ -108,19 +108,29 @@
                 </div>
                 <div class="page active">
                     <div class="front">
-                        <p class="page-content classname"><%= char.data._class %></p>
+                        <p class="page-title"><%= char.data._class %></p>
                         <hr />
+                        <p class="page-content">Placeholder</p>
                     </div>
                     <div class="back">
-                        <p class="page-content">22</p>
+                        <p class="page-title">Class Features</p>
+                        <hr />
+                        <p class="page-content">
+
+                            <% index = classes.findIndex(_class => _class.name === char.data._class) %>
+                            <%- classes[index].features %>
+
+                        </p>
                     </div>
                 </div>
                 <div class="page">
                     <div class="front">
-                        <p class="page-content">333</p>
+                        <p class="page-title">333</p>
+                        <hr />
                     </div>
                     <div class="back">
-                        <p class="page-content">4444</p>
+                        <p class="page-title">4444</p>
+                        </hr>
                     </div>
                 </div>
             </div>

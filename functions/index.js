@@ -45,17 +45,23 @@ firebase.initializeApp(firebaseConfig);
 
 const Constants = require('./myconstants.js')
 
+const character = require('./features.js')
+const characterClass = require('./model/characterClass.js')
+
 app.get('/', async (request, response) => {
-    const obj = {
-        _name: 'Berrik Rapidfist',
-        _class: 'Monk',
-        _level: 1,
-        _race: 'Hill Dwarf',
-        _alignment: 'Neutral Good',
-        _exp: 0,
-        _stats: ['hp', 'str', 'dex', 'con', 'int', 'wis', 'cha'],
-        _skills: ['to','be','cont...'],
+
+    let charToPush
+    let classNames = ['Barbarian', 'Wizard']
+    let classes = []
+
+    for (let i = 0; i < classNames.length; i++){
+        charToPush = new characterClass(classNames[i], character.features(classNames[i]))
+        classes.push(charToPush)
     }
+
+    // response.send(classes[0])
+
+    // classes[index]. name or features
 
     const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
     try {
@@ -64,7 +70,7 @@ app.get('/', async (request, response) => {
         snapshots.forEach(doc => {
             characters.push({ id: doc.id, data: doc.data() })
         })
-        response.render('home', {obj: obj, characters} )
+        response.render('home', {characters, classes} )
     } catch (e) {
         response.send(e)
     }
