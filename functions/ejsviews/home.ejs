@@ -33,7 +33,8 @@
                 </div>
 
                 <div class="float-bar-tabs">
-                    <button id="features_<%= char.id %>" type="button" class="btn btn-primary" onclick="openFeatures(id)">Features</button>
+                    <button id="features_<%= char.id %>" type="button" class="btn btn-primary"
+                        onclick="openFeatures(id)">Features</button>
                     <button type="button" class="btn btn-primary">Equipment</button>
                     <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
                         data-content="test test">Background</button>
@@ -98,18 +99,30 @@
             </div>
         </div>
 
-        <div id="book_<%= char.id %>"class="book-popup">
+        <div id="book_<%= char.id %>" class="book-popup">
             <div class="dim-screen"></div>
             <div class="book">
                 <div class="book-bg"><img src="/public/images/open_book.png" alt=""></div>
-                <div class="page">
-                    <div class="page-front"><p style="margin-left: 2%"><br/>This is page 1</p></div>
-                    <div class="page-back"><p style="margin-left: 2%"><br/>This is page 2</p></div>
+                <div class="class-img">
+                    <img src="/public/images/<%= char.data._class %>.png" />
                 </div>
-                <!-- <div class="page">
-                    <div class="page-front"><p>This is page 3</p></div>
-                    <div class="page-back"><p>This is page 4</p></div>
-                </div> -->
+                <div class="page active">
+                    <div class="front">
+                        <p class="page-content classname"><%= char.data._class %></p>
+                        <hr />
+                    </div>
+                    <div class="back">
+                        <p class="page-content">22</p>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="front">
+                        <p class="page-content">333</p>
+                    </div>
+                    <div class="back">
+                        <p class="page-content">4444</p>
+                    </div>
+                </div>
             </div>
         </div>
         <% } %>
@@ -126,11 +139,33 @@
 
 <script>
 
-$(document).ready(function (){
-    $('.page').click(function() {
-        $(this).toggleClass('flip')
+    $('.book')
+        .on('click', '.active', nextPage)
+        .on('click', '.flipped', prevPage)
+
+    function prevPage() {
+        $('.flipped')
+            .last()
+            .removeClass('flipped')
+            .addClass('active')
+            .siblings('.page')
+            .removeClass('active');
+    }
+    function nextPage() {
+        $('.active')
+            .removeClass('active')
+            .addClass('flipped')
+            .next('.page')
+            .addClass('active')
+            .siblings();
+    }
+
+    // Listen for 'Escape key' to close character features.
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) {
+            $('.opened-book').attr('style', 'display: none')
+        }
     })
-})
 
 </script>
 

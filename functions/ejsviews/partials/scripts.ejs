@@ -18,7 +18,9 @@
     function openFeatures(id){
         characterID = id.split('_')[1];
         let book = document.getElementById('book_' + characterID)
-        book.style.display = "block";     
+        book.style.display = "block";
+        book.className += " opened-book"
+        
     }
     
 </script>
