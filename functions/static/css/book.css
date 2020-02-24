@@ -1,0 +1,93 @@
+/* Book CSS */
+
+.book-popup {
+    position: absolute;
+    display: none;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+}
+
+.dim-screen {
+    position: fixed;
+    background: black;
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.book {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+    perspective: 900px;
+}
+
+.book-bg img {
+    filter: drop-shadow(15px 5px 5px black)
+}
+
+.class-img {
+    position: absolute;
+    width: 35.5%;
+    height: 70%;
+    top: 11%;
+    left: 12%;
+}
+
+.class-img img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;
+}
+
+.page {
+    position: absolute;
+    width: 41%;
+    top: 5%;
+    left: 50%;
+    height: 85%;
+    transition: 1s transform;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+}
+
+.front,.back {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 87.5%;
+    height: 87.5%;
+    background-image: url("../images/page.png");
+    -webkit-transform-style: preserve-3d;
+    /* background-color: green; */
+}
+
+.back {
+    transform: rotateY(180deg) scaleX(-1);
+}
+
+.back .page-content {
+    transform: scaleX(-1)
+}
+
+.page.flipped {
+    transform: rotateY(-180deg);
+}
+
+.page.active {
+    z-index: 1;
+}
+
+.page.flipped:last-of-type {
+    z-index: 1;
+}
+
+.classname {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 200%;
+    text-align: center;
+}
