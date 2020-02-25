@@ -12,15 +12,19 @@
 
 <script>
     $(function () {
-        $('[data-toggle="popover"]').popover()
+        $(document).on('click', ".feature-name", e => {
+            console.log('clicked')
+            $('[data-toggle="popover"]').popover()
+            e.stopPropagation();
+        })
     })
 
-    function openFeatures(id){
+    function openFeatures(id) {
         characterID = id.split('_')[1];
         let book = document.getElementById('book_' + characterID)
         book.style.display = "block";
         book.className += " opened-book"
-        
+
     }
-    
+
 </script>

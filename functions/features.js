@@ -2,11 +2,17 @@ module.exports = {
     features: function (classname) {
         switch (classname) {
             case "Barbarian": return [
-                `Rage <br/>
-                On your turn, you can enter a rage as a Bonus Action. <br/>
-                - You have advantage on Strength Checks and Strength Saving Throws. <br/>
-                - When you make a melee weapon Attack using Strength, you gain a +2 bonus to the damage roll. This bonus increases as you level. <br/>
-                - You have Resistance to bludgeoning, piercing, and slashing damage. <br/>
+                `<button type="button" class="feature-name"
+                data-toggle="popover"
+                title="Popover test"
+                data-content="this is a test"
+                >Rage</button> <br/>
+                <span class="feature-content">
+                    On your turn, you can enter a rage as a Bonus Action. <br/>
+                    - You have advantage on Strength Checks and Strength Saving Throws. <br/>
+                    - When you make a melee weapon Attack using Strength, you gain a +2 bonus to the damage roll. This bonus increases as you level. <br/>
+                    - You have Resistance to bludgeoning, piercing, and slashing damage. <br/>
+                </span>
                 `,
                 `Unarmored Defense
 

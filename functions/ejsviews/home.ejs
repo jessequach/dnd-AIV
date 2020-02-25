@@ -105,6 +105,11 @@
                 <div class="book-bg"><img src="/public/images/open_book.png" alt=""></div>
                 <div class="class-img">
                     <img src="/public/images/<%= char.data._class %>.png" />
+
+                    <button type="button" class="feature-name" data-toggle="popover" title="Popover test"
+                        data-content="this is a test">
+                        Test button</button>
+
                 </div>
                 <div class="page active">
                     <div class="front">
@@ -115,12 +120,14 @@
                     <div class="back">
                         <p class="page-title">Class Features</p>
                         <hr />
-                        <p class="page-content">
-
-                            <% index = classes.findIndex(_class => _class.name === char.data._class) %>
-                            <%- classes[index].features %>
-
-                        </p>
+                        <% index = classes.findIndex(_class => _class.name === char.data._class) %>
+                        <% for (let feature in classes[index].features) { %>
+                        <div class="row">
+                            <p class="page-content">
+                                <%- classes[index].features[feature] %>
+                            </p>
+                        </div>
+                        <% } %>
                     </div>
                 </div>
                 <div class="page">
