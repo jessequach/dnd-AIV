@@ -45,7 +45,7 @@ firebase.initializeApp(firebaseConfig);
 
 const Constants = require('./myconstants.js')
 
-const character = require('./features.js')
+const character = require('./characterFeatures.js')
 const characterClass = require('./model/characterClass.js')
 
 app.get('/', async (request, response) => {
@@ -58,10 +58,6 @@ app.get('/', async (request, response) => {
         charToPush = new characterClass(classNames[i], character.features(classNames[i]))
         classes.push(charToPush)
     }
-
-    // response.send(classes[0])
-
-    // classes[index]. name or features
 
     const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
     try {
