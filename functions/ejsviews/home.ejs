@@ -14,26 +14,26 @@
 <body>
 
     <div class="row row-cols-5">
-        <% for (let char of characters) {%>
+        <% for (let i = 0; i < characters.length; i++) { %>
         <div class="col">
-            <div id="card_<%= char.id %>" class="card" style="width: 18rem;">
+            <div id="card_<%- i %>" class="card" style="width: 18rem;">
                 <p class="character-desc">
-                    <%= char.data.name %> <br />
-                    <%= char.data.alignment %> <br />
-                    <%= char.data.race %>
-                    <%= char.data._class %> <br />
-                    LVL: <%= char.data.level %>
-                    EXP: <%= char.data.exp %> <br />
+                    <%= characters[i].data.name %> <br />
+                    <%= characters[i].data.alignment %> <br />
+                    <%= characters[i].data.race %>
+                    <%= characters[i].data._class %> <br />
+                    LVL: <%= characters[i].data.level %>
+                    EXP: <%= characters[i].data.exp %> <br />
                 </p>
 
                 <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
-                        HP: <%= char.data.hp %> / <%= char.data.hp %>
+                        HP: <%= characters[i].data.hp %> / <%= characters[i].data.hp %>
                     </div>
                 </div>
 
                 <div class="float-bar-tabs">
-                    <button id="features_<%= char.id %>" type="button" class="btn btn-primary"
+                    <button id="features_<%- i %>" type="button" class="btn btn-primary"
                         onclick="openFeatures(id)">Features</button>
                     <button type="button" class="btn btn-primary">Equipment</button>
                     <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="character-img-parent">
-                    <img class="card-img-top" src="<%= char.data.image_url %>">
+                    <img class="card-img-top" src="<%= characters[i].data.image_url %>">
                 </div>
 
                 <div class="card-body">
@@ -51,36 +51,38 @@
                         <div class="row" style="text-align: center;">
                             <div class="col">
                                 <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                    data-target="#collapseStats_<%= char.id %>" aria-expanded="false"
-                                    aria-controls="collapseStats_<%= char.id %>">
+                                    data-target="#collapseStats_<%= characters[i].id %>" aria-expanded="false"
+                                    aria-controls="collapseStats_<%= characters[i].id %>">
                                     Stats
                                 </button>
                             </div>
                             <div class="col">
                                 <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                    data-target="#collapseSkills_<%= char.id %>" aria-expanded="false"
-                                    aria-controls="collapseSkills_<%= char.id %>">
+                                    data-target="#collapseSkills_<%= characters[i].id %>" aria-expanded="false"
+                                    aria-controls="collapseSkills_<%= characters[i].id %>">
                                     Skills
                                 </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div style="text-align: center;" class="collapse" id="collapseStats_<%= char.id %>">
+                                <div style="text-align: center;" class="collapse"
+                                    id="collapseStats_<%= characters[i].id %>">
                                     <p>
-                                        <% for (let stat in char.data.stats) { %>
+                                        <% for (let stat in characters[i].data.stats) { %>
                                         <%= stat %>
-                                        <%= char.data.stats[stat] %>
+                                        <%= characters[i].data.stats[stat] %>
                                         <br />
                                         <% } %>
                                     </p>
                                 </div>
                             </div>
                             <div class="col">
-                                <div style="text-align: center;" class="collapse" id="collapseSkills_<%= char.id %>">
+                                <div style="text-align: center;" class="collapse"
+                                    id="collapseSkills_<%= characters[i].id %>">
                                     <p>
-                                        <% for (let skill in char.data.skills) { %>
-                                        <%= char.data.skills[skill] %>
+                                        <% for (let skill in characters[i].data.skills) { %>
+                                        <%= characters[i].data.skills[skill] %>
                                         <br />
                                         <% } %>
                                     </p>
@@ -93,33 +95,31 @@
                     <img style="width: 175%" src="public/images/dice.png" />
                 </div>
                 <div class="float-bar-hitdice">
-                    <p>1d<%= char.data.hitdice %></p>
+                    <p>1d<%= characters[i].data.hitdice %></p>
                 </div>
 
             </div>
         </div>
 
-        <div id="book_<%= char.id %>" class="book-popup">
+        <div id="book_<%= i %>" class="book-popup">
             <div class="dim-screen"></div>
             <div class="book">
                 <div class="book-bg"><img src="/public/images/open_book.png" alt=""></div>
                 <div class="class-img">
-                    <img src="/public/images/<%= char.data._class %>.png" />
-
-
+                    <img src="/public/images/<%= characters[i].data._class %>.png" />
 
                 </div>
                 <div class="page active">
                     <div class="front">
-                        <p class="page-title"><%= char.data._class %></p>
+                        <p class="page-title"><%= characters[i].data._class %></p>
                         <hr />
                     </div>
-                    <div class="back">
+                    <div class="back" hidden>
                         <p class="page-title">Class Features</p>
                         <hr />
 
                         <div class="container">
-                            <% index = classes.findIndex(_class => _class.name === char.data._class) %>
+                            <% index = classes.findIndex(_class => _class.name === characters[i].data._class) %>
                             <div class="row">
                                 <% for (let feature in classes[index].features) { %>
                                 <div class="col-6">
@@ -134,11 +134,11 @@
                     </div>
                 </div>
                 <div class="page">
-                    <div class="front">
+                    <div class="front" hidden>
                         <p class="page-title">333</p>
                         <hr />
                     </div>
-                    <div class="back">
+                    <div class="back" hidden>
                         <p class="page-title">4444</p>
                         </hr>
                     </div>
@@ -159,25 +159,50 @@
 
 <script>
 
-    $('.book')
-        .on('click', '.active', nextPage)
-        .on('click', '.flipped', prevPage)
+    let count = $('.card').length;
 
-    function prevPage() {
-        $('.flipped')
-            .last()
-            .removeClass('flipped')
-            .addClass('active')
-            .siblings('.page')
-            .removeClass('active');
+    for (let i = 0; i < count; i++) {
+        $(`#book_${i}`)
+            .on('click', `.active`, {
+                bookID: i
+            }, nextPage)
+            .on('click', `.flipped`, {
+                bookID: i
+            }, prevPage)
     }
-    function nextPage() {
-        $('.active')
-            .removeClass('active')
-            .addClass('flipped')
-            .next('.page')
-            .addClass('active')
-            .siblings();
+
+    function prevPage(e) {
+        let i = e.data.bookID
+        const pp = $(`#book_${i} .flipped`)
+        pp.last().removeClass('flipped').addClass('active').siblings('.page').removeClass('active')
+
+        // make back page hidden
+        setTimeout(function () {
+            pp.last()[0].children[1].hidden = true
+        }, 275)
+
+        // make front page visible
+        pp.last()[0].children[0].hidden = false
+
+
+    }
+    function nextPage(e) {
+        let i = e.data.bookID
+        const np = $(`#book_${i} .active`)
+        np.removeClass('active').addClass('flipped').next('.page').addClass('active').siblings()
+
+        // make front page hidden
+        setTimeout(function () {
+            np[0].children[0].hidden = true
+        }, 275)
+        // np[0].children[0].hidden = true
+
+        // make back page visible
+        np[0].children[1].hidden = false
+
+        // make next front page visible
+        if (np.next().length > 0)
+            np.next()[0].children[0].hidden = false
     }
 
     // Listen for 'Escape key' to close character features.
@@ -186,6 +211,9 @@
             $('.opened-book').attr('style', 'display: none')
         }
     })
+
+// $('#book_1 .flipped')
+// $('#book_1 .active')
 
 </script>
 

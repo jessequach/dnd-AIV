@@ -1,12 +1,12 @@
 module.exports = {
     features: function (classname) {
         switch (classname) {
-            case "Barbarian": 
-            let barbarianFeatureNames = [`Rage`,`Unarmored Defense`,`Danger Sense`,`Reckless Attack`,
-                `Primal Path`,`Ability Score Improvement`,`Extra Attack`,`Fast Movement`,`Feral Instinct`,
-                `Brutal Critical`,`Relentless Rage`,`Persistent Rage`,`Indomitable Might`,`Primal Champion`]
-            let barbarianFeatureData = [
-                `On your turn, you can enter rage as a Bonus Action <br/>
+            case "Barbarian":
+                let barbarianFeatureNames = [`Rage`, `Unarmored Defense`, `Danger Sense`, `Reckless Attack`,
+                    `Primal Path`, `Ability Score Improvement`, `Extra Attack`, `Fast Movement`, `Feral Instinct`,
+                    `Brutal Critical`, `Relentless Rage`, `Persistent Rage`, `Indomitable Might`, `Primal Champion`]
+                let barbarianFeatureData = [
+                    `On your turn, you can enter rage as a Bonus Action <br/>
                 While raging, gain the following benefits if you are not wearing heavy armor: <br/>
                 - Advantage on Strength Checks and Strength Saving Throws.
                 - +2 bonus to damage roll when using a melee weapon Attack using Strength. This bonus increases as you level.
@@ -46,20 +46,20 @@ module.exports = {
                 </div>
 
                 `,
-                `Armor Class = (10 + dexMod + conMod) when not wearing armor (excluding Shield).
+                    `Armor Class = (10 + dexMod + conMod) when not wearing armor (excluding Shield).
                 `,
-                `At 2nd level, you can sense when things nearby shouldn't be.
+                    `At 2nd level, you can sense when things nearby shouldn't be.
                 `,
-                `ra`,
-                `pp`,
-                `asi`,
-                `ea`,
-                `fm`,
-                `fi`,
-                `bc`,`rr`,`pr`,`im`,`pc`
-            ]
-            
-            return createFeatures(barbarianFeatureNames, barbarianFeatureData);
+                    `ra`,
+                    `pp`,
+                    `asi`,
+                    `ea`,
+                    `fm`,
+                    `fi`,
+                    `bc`, `rr`, `pr`, `im`, `pc`
+                ]
+
+                return createFeatures(barbarianFeatureNames, barbarianFeatureData);
 
             case "Wizard": return [`wizard`, `placeholder`]
         }
@@ -68,19 +68,37 @@ module.exports = {
 
 function createFeatures(fNames, fData) {
     let features = []
-    fNames.forEach( (value, index) => {
+
+    // for (let index = fNames.length - 1; index >= 0; index--) {
+
+    //     let featureToAdd = `
+    //     <button 
+    //         type="button"
+    //         data-toggle="popover"
+    //         data-content="${fData[index]}">
+    //         ${fNames[index]}
+    //     </button>
+    //     `
+
+    //     console.log('fNames[index]', `${fNames[index]}`)
+
+    //     features.push(featureToAdd)
+    // }
+
+    fNames.forEach((value, index) => {
         let featureToAdd = `
             <button 
-                style="position: relative"
-                class="btn btn-primary feature-name"
+                class="feature-name"
                 type="button"
                 data-toggle="popover"
                 data-content="${fData[index]}">
                 ${fNames[index]}
             </button>
         `
+        console.log('fNames[index]', `${fNames[index]}`)
+
         features.push(featureToAdd)
     })
-    console.log(features)
+
     return features;
 }
