@@ -12,11 +12,18 @@
 
 <script>
     $(function () {
-        $(document).on('click', ".feature-name", e => {
-            console.log('clicked')
-            $('[data-toggle="popover"]').popover()
+
+        // enable popover
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'focus',
+        })
+
+        // when clicking a class feature button, only show popover 
+        $('.feature-name').click(e => {
             e.stopPropagation();
         })
+
     })
 
     function openFeatures(id) {
@@ -24,7 +31,6 @@
         let book = document.getElementById('book_' + characterID)
         book.style.display = "block";
         book.className += " opened-book"
-
     }
 
 </script>
