@@ -10,11 +10,23 @@ function admin_page_secured() {
 
         <div class="container">
 
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <label class="input-group-text">Name</label>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">First Name</label>
+                        </div>
+                            <input class="form-control" type="text" id="input_firstName"/>
+                    </div>
                 </div>
-                    <input class="form-control" type="text" id="input_name"/>
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">Last Name</label>
+                        </div>
+                            <input class="form-control" type="text" id="input_lastName"/>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
@@ -228,7 +240,8 @@ function getBaseHP() {
 
 // Creates character
 async function createCharacter() {
-    const name = document.getElementById('input_name').value
+    const firstName = document.getElementById('input_firstName').value
+    const lastName = document.getElementById('input_lastName').value
     const _class = document.getElementById('input_class').value
     const race = document.getElementById('input_race').value
     const alignment = document.getElementById('input_alignment').value
@@ -246,7 +259,7 @@ async function createCharacter() {
 
         await firebase.firestore().collection(COLLECTION_CHARACTERS).doc()
             .set({
-                name, _class, race, alignment, stats, skills, image, image_url,
+                firstName, lastName, _class, race, alignment, stats, skills, image, image_url,
                 'exp': 0, 'level': 1, hitdice, hp
             })
 

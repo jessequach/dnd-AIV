@@ -51,7 +51,7 @@ const characterClass = require('./model/characterClass.js')
 app.get('/', async (request, response) => {
 
     let charToPush
-    let classNames = ['Barbarian', 'Wizard']
+    let classNames = ['Fighter', 'Monk', 'Rogue', 'Wizard']
     let classes = []
 
     for (let i = 0; i < classNames.length; i++){
@@ -62,7 +62,7 @@ app.get('/', async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
     try {
         let characters = []
-        const snapshots = await coll.orderBy("name").get()
+        const snapshots = await coll.orderBy("lastName").get()
         snapshots.forEach(doc => {
             characters.push({ id: doc.id, data: doc.data() })
         })
