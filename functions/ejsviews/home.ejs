@@ -136,10 +136,24 @@
                 <div class="page">
                     <div class="front" hidden>
                         <p class="page-title">333</p>
+                        <button type="button" onclick="console.log('clicked 3333')">click me</button>
                         <hr />
                     </div>
                     <div class="back" hidden>
                         <p class="page-title">4444</p>
+                        <button type="button" onclick="console.log('clicked 4444')">click me</button>
+                        </hr>
+                    </div>
+                </div>
+                <div class="page">
+                    <div class="front" hidden>
+                        <p class="page-title">55555</p>
+                        <button type="button" onclick="console.log('clicked 55555')">click me</button>
+                        <hr />
+                    </div>
+                    <div class="back" hidden>
+                        <p class="page-title">666666</p>
+                        <button type="button" onclick="console.log('clicked 666666')">click me</button>
                         </hr>
                     </div>
                 </div>
@@ -176,13 +190,26 @@
         const pp = $(`#book_${i} .flipped`)
         pp.last().removeClass('flipped').addClass('active').siblings('.page').removeClass('active')
 
-        // make back page hidden
+
+        // make current front page visible
+        pp.last()[0].children[0].hidden = false
+
+        // make current back page hidden
         setTimeout(function () {
             pp.last()[0].children[1].hidden = true
         }, 275)
 
-        // make front page visible
-        pp.last()[0].children[0].hidden = false
+        // make previous back page visible (if exists)
+        if (pp.last()[0].previousElementSibling.classList.contains('page')) {
+            pp.last()[0].previousElementSibling.children[1].hidden = false
+        }
+
+        // make next front page hidden (if exists)
+        if (pp.last()[0].nextElementSibling) {
+            setTimeout(function(){
+                pp.last()[0].nextElementSibling.children[0].hidden = true
+            }, 550)
+        }
 
 
     }
@@ -191,18 +218,28 @@
         const np = $(`#book_${i} .active`)
         np.removeClass('active').addClass('flipped').next('.page').addClass('active').siblings()
 
-        // make front page hidden
+        // make current front page hidden
         setTimeout(function () {
             np[0].children[0].hidden = true
         }, 275)
-        // np[0].children[0].hidden = true
 
-        // make back page visible
+        // make current back page visible
         np[0].children[1].hidden = false
 
-        // make next front page visible
-        if (np.next().length > 0)
-            np.next()[0].children[0].hidden = false
+        // make previous back page hidden if exists
+        if (np.prev()[0].classList.contains('page')) {
+            setTimeout(function(){
+                np[0].previousElementSibling.children[1].hidden = true
+            }, 550)
+        }
+
+        // make next front page visible if exists
+        if (np.next().length > 0) {
+            setTimeout(function(){
+                np[0].nextElementSibling.children[0].hidden = false
+            }, 275)
+        }
+
     }
 
     // Listen for 'Escape key' to close character features.
