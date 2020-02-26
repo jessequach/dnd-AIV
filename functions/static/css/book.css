@@ -61,17 +61,13 @@
     left: 5%;
     width: 87.5%;
     height: 87.5%;
-    background-image: url("../images/page.png");
     -webkit-transform-style: preserve-3d;
-    /* background-color: green; */
+    /* background-image: url("../images/page.png"); */
+    background-color: white;
 }
 
 .back {
     transform: rotateY(180deg) scaleX(-1);
-}
-
-.back .page-content {
-    transform: scaleX(-1)
 }
 
 .back .page-title {
@@ -91,9 +87,15 @@
 }
 
 .page-content {
+    height: 100%;
+    width: 100%;
     font-family: 'Oswald', sans-serif;
     padding-left: 2%;
     text-shadow: 1px 1px black;
+}
+
+.flip {
+    transform: scaleX(-1)
 }
 
 .page-title {
@@ -103,6 +105,7 @@
     text-shadow: 2px 1.5px black;
 }
 
-.page .row {
-    box-shadow: 0px 2.5px 4px;
+.page button {
+    height: 100%;
+    width: 100%;
 }
