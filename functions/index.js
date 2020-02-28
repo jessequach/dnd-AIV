@@ -54,7 +54,7 @@ app.get('/', async (request, response) => {
     let classNames = ['Fighter', 'Monk', 'Rogue', 'Wizard']
     let classes = []
 
-    for (let i = 0; i < classNames.length; i++){
+    for (let i = 0; i < classNames.length; i++) {
         charToPush = new characterClass(classNames[i], character.features(classNames[i]))
         classes.push(charToPush)
     }
@@ -66,9 +66,21 @@ app.get('/', async (request, response) => {
         snapshots.forEach(doc => {
             characters.push({ id: doc.id, data: doc.data() })
         })
-        response.render('home', {characters, classes} )
+        response.render('home', { characters, classes })
     } catch (e) {
         response.send(e)
     }
 
+})
+
+app.get('/mob', (request, response) => {
+    var testData = `
+    {
+        "persons":
+        {
+            "name": "John","class": "Merchant"   
+        }
+    }`
+    obj = JSON.parse(testData)
+    response.send(obj)
 })
