@@ -122,8 +122,14 @@
     text-align: center;
 }
 
+/* Popover CSS */
 .popover-italics {
     font-style: italic;
+}
+.popover {
+    text-align: center;
+    font-size: 115%;
+    max-width: 30%;
 }
 
 /* Overriding styling on bootstrap classes */
