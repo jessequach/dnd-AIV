@@ -176,6 +176,31 @@
         statModifier()
     })
 
+    function createModal(title) {
+        let modal = `
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+        return modal
+    }
+
     function genMob() {
         $.ajax({
             url: 'mob/',
@@ -196,28 +221,40 @@
                                 HP: ${data.data.health} / ${data.data.health}
                             </div>
                         </div>
-                        
+
                         <div class="float-bar-tabs">
                             <button id="${data.id}" type="button" class="btn btn-primary"
-                                onclick="interact(${data.id})"><i class="fas fa-book"></i></button>
+                                onclick="interact('${data.id}')"><i class="fas fa-book"></i></button>
                         </div>
 
                         <div class="character-img-parent"><img class="card-img-top" src=" "></div>
+
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >test</button>
+                        </div>
+
                     </div>
+
+                    ${createModal('test_shopkeeper')}
                 `
             }
         })
     }
 
-    function interact(id){
-        if (id.includes("merchant")){
+    function interact(id) {
+        console.log(
+            typeof id, id
+        )
+        if (id.includes("merchant")) {
             openShop(id)
         }
     }
-    
-    function openShop(id){
+
+    function openShop(id) {
         $.ajax({
-            url: 'shop/'
+            url: 'shop/',
+            type: 'GET',
+            dataType: 'json',
         })
     }
 
@@ -230,11 +267,11 @@
             }
         })
     }
-    function alterModifierText() {
-    }
     function getStatModifier(stat) { return Math.floor((stat - 10) / 2) }
 
+    // =============================== //
     // start of book related functions
+    // =============================== //
     let count = $('.card').length;
     for (let i = 0; i < count; i++) {
         $(`#book_${i}`)
@@ -301,12 +338,23 @@
         }
 
     }
+    // =============================== //
     // end of book related functions
+    // =============================== //
 
     // Listen for 'Escape key' to close character features.
     $(document).on('keydown', function (e) {
         if (e.keyCode === 27) {
             $('.opened-book').attr('style', 'display: none')
+            $('.opened-book').removeClass('opened-book')
+        }
+        // 'a' key
+        if (e.keyCode == 65) {
+            $('.opened-book > .book > .page.flipped:last').click()
+        }
+        // 'd' key
+        if (e.keyCode == 68) {
+            $('.opened-book > .book > .page.active').click()
         }
     })
 
