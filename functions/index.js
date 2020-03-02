@@ -74,10 +74,29 @@ app.get('/', async (request, response) => {
 
 })
 
+app.get('/shop/:id', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
+    let shop = await coll.doc(request.params.id).get()
+
+    // let shopSize = Object.keys(shop.data()['items']).length
+    // let result = []
+    // for (let i = 0; i < shopSize; i++) {
+    //     if (Object.values(shop.data()['items'][i]).includes('Adventuring Gear')) {
+    //         result.push(shop.data()['items'][i])
+    //     }
+    // }
+
+    if (shop.data() != null) {
+        response.send(shop.data()['items'])
+    } else {
+        response.send('No shop exists')
+    }
+})
+
 app.get('/mob', (request, response) => {
     var testData = `
     {
-        "id": "merchant",
+        "shopID": "test shop 2",
         "data": {
             "name": "Jeri",
             "role": "Merchant",
