@@ -21,7 +21,8 @@ function frontendHandler(request, response) {
     response.sendFile(__dirname + '/admin/admin.html')
 }
 
-app.get('/admin', frontendHandler);
+app.get('/a-create', frontendHandler);
+app.get('/a-shop', frontendHandler);
 
 // ============================ //
 // Start of backend programming
