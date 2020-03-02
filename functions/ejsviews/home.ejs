@@ -18,7 +18,7 @@
             <div class="row row-cols-3" style="justify-content: center;">
                 <% for (let i = 0; i < characters.length; i++) { %>
                 <div class="col">
-                    <div id="card_<%- i %>" class="card" style="width: 18rem;">
+                    <div id="card_<%- i %>" class="card" style="width: 16rem;">
                         <p class="character-desc">
                             <%= characters[i].data.firstName %> <%= characters[i].data.lastName %> <br />
                             <%= characters[i].data.alignment %> <br />
@@ -36,12 +36,7 @@
 
                         <div class="float-bar-tabs">
                             <button id="features_<%- i %>" type="button" class="btn btn-primary"
-                                onclick="openFeatures(id)">Features</button>
-                            <button type="button" class="btn btn-primary">Equipment</button>
-                            <button type="button" class="btn btn-primary" data-toggle="popover" title="title"
-                                data-content="test test">Background</button>
-                            <button type="button" class="btn btn-primary">{}</button>
-                            <button type="button" class="btn btn-primary">{}</button>
+                                onclick="openFeatures(id)"><i class="fas fa-book"></i></button>
                         </div>
 
                         <div class="character-img-parent"><img class="card-img-top" src=" "></div>
@@ -118,7 +113,7 @@
                                 <hr />
                                 <p class="page-content">- Character Backstory -</p>
                             </div>
-                            <div class="back" hidden>
+                            <div style="overflow: auto;" class="back" hidden>
                                 <p class="page-title">Class Features</p>
                                 <hr />
                                 <% index = classes.findIndex(_class => _class.name === characters[i].data._class) %>
@@ -190,13 +185,39 @@
                 mob1 = document.getElementById('mob1')
                 return mob1.innerHTML = `
                     <div class="card" style="width: 18rem;">
+                        
                         <p class="character-desc">
-                            ${data.persons.name} <br/>
-                            ${data.persons.class}
+                            ${data.data.name} <br/>
+                            ${data.data.role} 
                         </p>
+                        
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                                HP: ${data.data.health} / ${data.data.health}
+                            </div>
+                        </div>
+                        
+                        <div class="float-bar-tabs">
+                            <button id="${data.id}" type="button" class="btn btn-primary"
+                                onclick="interact(${data.id})"><i class="fas fa-book"></i></button>
+                        </div>
+
+                        <div class="character-img-parent"><img class="card-img-top" src=" "></div>
                     </div>
                 `
             }
+        })
+    }
+
+    function interact(id){
+        if (id.includes("merchant")){
+            openShop(id)
+        }
+    }
+    
+    function openShop(id){
+        $.ajax({
+            url: 'shop/'
         })
     }
 
