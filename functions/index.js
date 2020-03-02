@@ -45,17 +45,17 @@ firebase.initializeApp(firebaseConfig);
 
 const Constants = require('./myconstants.js')
 
-const character = require('./characterFeatures.js')
 const characterClass = require('./model/characterClass.js')
+const characterFeatures = require('./characterFeatures.js')
 
 app.get('/', async (request, response) => {
 
-    let charToPush
     let classNames = ['Fighter', 'Monk', 'Rogue', 'Wizard']
+    let charToPush
     let classes = []
 
     for (let i = 0; i < classNames.length; i++) {
-        charToPush = new characterClass(classNames[i], character.features(classNames[i]))
+        charToPush = new characterClass(classNames[i], characterFeatures.getFeatures(classNames[i]))
         classes.push(charToPush)
     }
 
@@ -76,9 +76,11 @@ app.get('/', async (request, response) => {
 app.get('/mob', (request, response) => {
     var testData = `
     {
-        "persons":
-        {
-            "name": "John","class": "Merchant"   
+        "id": "merchant",
+        "data": {
+            "name": "Jeri",
+            "role": "Merchant",
+            "health": "12"
         }
     }`
     obj = JSON.parse(testData)
