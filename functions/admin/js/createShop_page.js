@@ -84,23 +84,16 @@ function addItem() {
     const itemSubtype = document.getElementById('input_itemSubtype').value
     let newItem = { 'name': itemName, 'price': itemPrice, 'type': itemType, 'subtype': itemSubtype }
     itemList.push(newItem)
-    console.log('current item list: ', itemList)
     document.getElementById('itemForm').reset()
     document.getElementById('input_itemName').focus()
 }
 
-async function createShop() {
-    // add shop to firebase
-    try {
-        await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopName)
-            .set({
-                'items:': itemList
-            })
-
-        alert('added shop')
-    } catch (e) {
-        alert('Error! ' + e)
+function changeSubtypes(subtypes) {
+    let result = ""
+    for (let subtype of subtypes) {
+        result += `<option value="${subtype}">` + subtype + `</option>`
     }
+    document.getElementById('input_itemSubtype').innerHTML = result
 }
 
 function getSubtypes() {
@@ -136,11 +129,24 @@ function getSubtypes() {
     }
 }
 
-function changeSubtypes(subtypes) {
-    let result = ""
-    for (let subtype of subtypes) {
-        result += `<option value="${subtype}">` + subtype + `</option>`
-    }
-    document.getElementById('input_itemSubtype').innerHTML = result
-}
 
+
+async function createShop() {
+    // let batch = firebase.firestore().batch()
+    // add shop to firebase
+    try {
+        await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopName)
+            .set({
+                'id': shopName,
+                'items': itemList
+            })
+        // itemList.forEach((item, index) => {
+        //     batch.set(documentReference,
+        //         { [`${item.name}`]: { price: item.price, type: item.type, subtype: item.subtype } }, { merge: true })
+        // })
+        // batch.commit()
+        alert('added shop')
+    } catch (e) {
+        alert('Error! ' + e)
+    }
+}
