@@ -7,6 +7,10 @@ p {
     margin-right: 0;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .col {
     margin-bottom: 2%;
 }
@@ -37,6 +41,7 @@ p {
 .character-img-parent {
     margin-left: 10%;
     margin-right: 10%;
+    margin-bottom: 5%;
 }
 
 .character-desc {
@@ -77,8 +82,3 @@ p {
 hr {
     width: 90%
 }
-
-
-
-
-
