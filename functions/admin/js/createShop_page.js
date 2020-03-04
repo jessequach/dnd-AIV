@@ -4,6 +4,7 @@ function createShop_page() {
 
 let shopName
 let itemList = []
+let printedItems = ""
 
 function createShop_page_secured() {
     pageContent.innerHTML = '<h1> Shop Creation </h1>'
@@ -67,17 +68,15 @@ function createShop_page_secured() {
                 </div>
             </form>
             </div>
-
+                <div id="itemList" style="padding-bottom: 1%;"></div>
                 <button type="button" class="btn btn-primary" onclick="addItem()">Add Item</button>
+                <button type="button" class="btn btn-primary" onclick="createShop()">Create Shop</button>
 
         </div>
-
-        <button tyoe="button" class="btn btn-primary" onclick="createShop()">Create Shop</button>
     `
 }
 
 function addItem() {
-    shopName = document.getElementById('input_shopName').value
     const itemName = document.getElementById('input_itemName').value
     const itemPrice = document.getElementById('input_itemPrice').value
     const itemType = document.getElementById('input_itemType').value
@@ -86,6 +85,16 @@ function addItem() {
     itemList.push(newItem)
     document.getElementById('itemForm').reset()
     document.getElementById('input_itemName').focus()
+    
+    printedItems = document.getElementById('itemList')
+    printedItems.innerHTML += `
+    <div>
+        ${newItem.name},
+        ${newItem.price},
+        ${newItem.type},
+        ${newItem.subtype},
+    </div>
+    `
 }
 
 function changeSubtypes(subtypes) {
@@ -132,20 +141,24 @@ function getSubtypes() {
 
 
 async function createShop() {
-    // let batch = firebase.firestore().batch()
+    // !! fix shopID to not have spaces !!
+    shopName = document.getElementById('input_shopName').value
+    shopID = shopName.replace(/\s|'/g,"")
     // add shop to firebase
     try {
-        await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopName)
-            .set({
-                'id': shopName,
+        let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopName).get()
+        if (documentReference.exists) {
+            alert('shop already exists')
+        } else {
+            await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopID).set({
+                'shopID': shopID,
+                'name': shopName,
                 'items': itemList
             })
-        // itemList.forEach((item, index) => {
-        //     batch.set(documentReference,
-        //         { [`${item.name}`]: { price: item.price, type: item.type, subtype: item.subtype } }, { merge: true })
-        // })
-        // batch.commit()
-        alert('added shop')
+            alert('added shop')
+            itemList = []
+            printedItems.innerHTML = ""
+        }
     } catch (e) {
         alert('Error! ' + e)
     }
