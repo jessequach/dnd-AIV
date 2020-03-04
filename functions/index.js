@@ -21,8 +21,9 @@ function frontendHandler(request, response) {
     response.sendFile(__dirname + '/admin/admin.html')
 }
 
-app.get('/a-create', frontendHandler);
+app.get('/a-character', frontendHandler);
 app.get('/a-shop', frontendHandler);
+app.get('/a-npc', frontendHandler);
 
 // ============================ //
 // Start of backend programming
@@ -74,29 +75,38 @@ app.get('/', async (request, response) => {
 
 })
 
+app.get('/shops', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
+    try {
+        let shops = []
+        const snapshots = await coll.get()
+        snapshots.forEach(doc => {
+            shops.push({ id: doc.id, data: doc.data() })
+        })
+        response.send(shops)
+    } catch (e) {
+        response.send(e)
+    }
+})
+
 app.get('/shop/:id', async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
     let shop = await coll.doc(request.params.id).get()
-
-    // let shopSize = Object.keys(shop.data()['items']).length
-    // let result = []
-    // for (let i = 0; i < shopSize; i++) {
-    //     if (Object.values(shop.data()['items'][i]).includes('Adventuring Gear')) {
-    //         result.push(shop.data()['items'][i])
-    //     }
-    // }
-
     if (shop.data() != null) {
-        response.send(shop.data())
+        response.send(
+            shop.data()
+            )
     } else {
-        response.send('No shop exists')
+        response.send(`
+        No shop exists under '${request.params.id}'. Possibly check spelling/capitalization.
+        `)
     }
 })
 
 app.get('/mob', (request, response) => {
     var testData = `
     {
-        "shopID": "test shop 2",
+        "shopID": "MjollsGoods",
         "data": {
             "name": "Jeri",
             "role": "Merchant",
