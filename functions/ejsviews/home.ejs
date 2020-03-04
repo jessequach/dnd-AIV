@@ -177,10 +177,10 @@
 
     function createShopModal(shop) {
 
-
+        let shopOrder = document.getElementById('shop-order')
 
         let content = ""
-        for (let item of shop){
+        for (let item of shop['items']) {
             content += `<div class="shop-item" style="margin: .5%; padding: .5%; border: solid 1px;">
                 <span style="font-weight: bold">${item.name}</span> <br/>
                 ${item.price} GP <br/>
@@ -190,21 +190,19 @@
             `
         }
 
-        console.log(shop)
-
         let modal = `
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">${shop['id']}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     
                     <div class="float-bar-types">
-                        <select class="custom-select">
+                        <select id="shop-order" class="custom-select">
                             <option value="" selected disabled hidden>-- Order By --</option>
                             <option value="Adventuring Gear">Adventuring Gear</option>
                             <option value="Magic Items">Magic Items</option>
@@ -235,6 +233,7 @@
             dataType: 'json',
             success: (npc) => {
                 let npc1 = document.getElementById('npc1')
+                generateShop(npc.shopID)
                 return npc1.innerHTML = `
                     <div class="card" style="width: 18rem;">
                         <p class="character-desc">
@@ -253,7 +252,6 @@
                             </button>
                         </div>
                         <div class="character-img-parent"><img class="card-img-top" src=" "></div>
-                        ${generateShop(npc.shopID)}
                     </div>
                 `
             }

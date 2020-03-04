@@ -87,7 +87,7 @@ app.get('/shop/:id', async (request, response) => {
     // }
 
     if (shop.data() != null) {
-        response.send(shop.data()['items'])
+        response.send(shop.data())
     } else {
         response.send('No shop exists')
     }
