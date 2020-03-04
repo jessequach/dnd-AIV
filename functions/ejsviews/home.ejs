@@ -171,39 +171,77 @@
 
 <script>
 
-    // load these functions when document is ready
-    $(function () {
-    })
-
-    function createShopModal(shop) {
-
-        let shopOrder = document.getElementById('shop-order')
-
-        let content = ""
+    function defaultShop(items, shop) {
         for (let item of shop['items']) {
-            content += `<div class="shop-item" style="margin: .5%; padding: .5%; border: solid 1px;">
-                <span style="font-weight: bold">${item.name}</span> <br/>
-                ${item.price} GP <br/>
-                ${item.type} <br/>
-                <span style="font-style: italic">${item.subtype}</span> <br/>
-                </div>
+            items += `
+            <div class='shop-item' style='margin: .5%; padding: .5%; border: solid 1px;'>
+                <span style='font-weight: bold'>${item.name}</span> <br/>
+                    ${item.price} GP <br/>
+                    ${item.type} <br/>
+                <span style='font-style: italic'>${item.subtype}</span> <br/>
+            </div>
             `
         }
-
+        return items;
+    }
+    function refreshShop(selected, shop) {
+        let items = ""
+        if (selected.value != "") {
+            for (let item of shop['items']) {
+                if (item['type'] === selected.value){
+                    items += `
+                    <div class='shop-item' style='margin: .5%; padding: .5%; border: solid 1px;'>
+                        <span style='font-weight: bold'>${item.name}</span> <br/>
+                            ${item.price} GP <br/>
+                            ${item.type} <br/>
+                        <span style='font-style: italic'>${item.subtype}</span> <br/>
+                    </div>
+                    `
+                }
+            }
+        } else {
+            items = defaultShop(items, shop)
+        }
+        document.getElementById('shop-content').innerHTML = items
+    }
+    function createNPCCard(npc) {
+        let card = `
+        <div class="card" style="width: 18rem;">
+            <p class="character-desc">
+                ${npc.data.name} <br/>
+                ${npc.data.role} 
+            </p>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                    HP: ${npc.data.health} / ${npc.data.health}
+                </div>
+            </div>
+            <div class="float-bar-tabs">
+                <button id="${npc.shopID}" type="button" class="btn btn-primary" 
+                    data-toggle="modal" data-target="#shop_PLACEHOLDER">
+                        <i class="fas fa-book"></i>
+                </button>
+            </div>
+            <div class="character-img-parent"><img class="card-img-top" src=" "></div>
+        </div>
+        `
+        return card
+    }
+    function createShopModal(shop) {
         let modal = `
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="shop_PLACEHOLDER" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">${shop['id']}</h5>
+                        <h5 class="modal-title">${shop['name']}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     
                     <div class="float-bar-types">
-                        <select id="shop-order" class="custom-select">
-                            <option value="" selected disabled hidden>-- Order By --</option>
+                        <select class="custom-select" onchange="refreshShop(this, ${JSON.stringify(shop).split('"').join("&quot;")} )">
+                            <option value="" selected>All</option>
                             <option value="Adventuring Gear">Adventuring Gear</option>
                             <option value="Magic Items">Magic Items</option>
                             <option value="Services">Services</option>
@@ -212,12 +250,11 @@
                         </select>
                     </div>
 
-                    <div class="modal-body">
-                        ${content}
+                    <div id="shop-content" class="modal-body">
+                        ${defaultShop(``, shop)}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -225,7 +262,6 @@
         `
         return modal
     }
-
     function generateNPC() {
         $.ajax({
             url: 'mob/',
@@ -233,31 +269,11 @@
             dataType: 'json',
             success: (npc) => {
                 let npc1 = document.getElementById('npc1')
+                npc1.innerHTML = createNPCCard(npc)
                 generateShop(npc.shopID)
-                return npc1.innerHTML = `
-                    <div class="card" style="width: 18rem;">
-                        <p class="character-desc">
-                            ${npc.data.name} <br/>
-                            ${npc.data.role} 
-                        </p>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
-                                HP: ${npc.data.health} / ${npc.data.health}
-                            </div>
-                        </div>
-                        <div class="float-bar-tabs">
-                            <button id="${npc.shopID}" type="button" class="btn btn-primary" 
-                                data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-book"></i>
-                            </button>
-                        </div>
-                        <div class="character-img-parent"><img class="card-img-top" src=" "></div>
-                    </div>
-                `
             }
         })
     }
-
     function generateShop(shopID) {
         $.ajax({
             url: 'shop/' + shopID,
@@ -265,11 +281,14 @@
             dataType: 'json',
             success: (shop) => {
                 let npc1 = document.getElementById('npc1')
-                return npc1.innerHTML += createShopModal(shop)
+                npc1.innerHTML += createShopModal(shop)
             }
         })
     }
 
+    /* 
+        stat modifier related functions
+    */
     function statModifier() {
         let classFeatures = $('.feature-name')
         classFeatures.each((index, value) => {
@@ -281,9 +300,9 @@
     }
     function getStatModifier(stat) { return Math.floor((stat - 10) / 2) }
 
-    // =============================== //
-    // start of book related functions
-    // =============================== //
+    /* 
+        book related functions
+    */
     let count = $('.card').length;
     for (let i = 0; i < count; i++) {
         $(`#book_${i}`)
@@ -298,7 +317,6 @@
         let i = e.data.bookID
         const pp = $(`#book_${i} .flipped`)
         pp.last().removeClass('flipped').addClass('active').siblings('.page').removeClass('active')
-
 
         // make current front page visible
         pp.last()[0].children[0].hidden = false
@@ -319,8 +337,6 @@
                 pp.last()[0].nextElementSibling.children[0].hidden = true
             }, 550)
         }
-
-
     }
     function nextPage(e) {
         let i = e.data.bookID
@@ -348,11 +364,7 @@
                 np[0].nextElementSibling.children[0].hidden = false
             }, 275)
         }
-
     }
-    // =============================== //
-    // end of book related functions
-    // =============================== //
 
     // Listen for 'Escape key' to close character features.
     $(document).on('keydown', function (e) {
