@@ -44,22 +44,20 @@
     firebase.initializeApp(firebaseConfig);
   </script>
 
-  <script src="js/createCharacter_page.js"></script>
-  <script src="js/createShop_page.js"></script>
-
   <script>
     const pageContent = document.getElementById('page_content')
     const STORAGE_CHARACTERS = 'characters/'
     const COLLECTION_CHARACTERS = 'characters'
     const COLLECTION_SHOPS = 'shops'
 
-
     window.onload = function () {
       const currentPath = window.location.pathname
-      if (currentPath === '/a-create') {
+      if (currentPath === '/a-character') {
         createCharacter_page()
       } else if (currentPath === '/a-shop') {
         createShop_page()
+      } else if (currentPath === '/a-npc') {
+        createNPC_page()
       } else {
         window.location.href = '/'
       }
@@ -77,6 +75,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
+    <script src="js/createCharacter_page.js"></script>
+    <script src="js/createShop_page.js"></script>
+    <script src="js/createNPC_page.js"></script>
+
 </body>
 
 </html>
