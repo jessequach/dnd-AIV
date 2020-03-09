@@ -157,19 +157,28 @@
             - NPC Card Testing -
             <button id="generateNPC" type="button" onclick="generateNPC()">generateNPC</button>
             <div id="npc1"></div>
+            <button type="button" onclick="testFn()">test btn</button>
+            <div id="testContent"></div>
         </div>
     </div>
 
-    <!--  -->
-
-
-
-    <!--  -->
     <%- include('partials/scripts.ejs') %>
 
 </body>
 
+</html>
+
 <script>
+
+    function testFn() {
+        const newWidth = window.innerWidth * 0.3
+        const newHeight = window.innerHeight
+        var adminModal = window.open(
+            "/adminModal",
+            "newWindow",
+            `modal=yes, width=${newWidth}, height=${newHeight}`
+        )
+    }
 
     function defaultShop(items, shop) {
         for (let item of shop['items']) {
@@ -188,7 +197,7 @@
         let items = ""
         if (selected.value != "") {
             for (let item of shop['items']) {
-                if (item['type'] === selected.value){
+                if (item['type'] === selected.value) {
                     items += `
                     <div class='shop-item' style='margin: .5%; padding: .5%; border: solid 1px;'>
                         <span style='font-weight: bold'>${item.name}</span> <br/>

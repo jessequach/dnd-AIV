@@ -106,7 +106,7 @@ app.get('/shop/:id', async (request, response) => {
 app.get('/npcs', async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     try {
-        let npcs = await coll.get()
+        let npcs = []
         const snapshots = await coll.get()
         snapshots.forEach(doc => {
             npcs.push({ id: doc.id, data: doc.data() })
@@ -129,4 +129,22 @@ app.get('/npc/:id', async (request, response) => {
         No npc exists under '${request.params.id}'. Possibly check spelling/capitalization.
         `)
     }
+})
+
+app.get('/npcs/:alignment', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
+    try {
+        let npcs = []
+        const snapshots = await coll.where('alignment', '==', `${request.params.alignment}`).get()
+        snapshots.forEach(doc => {
+            npcs.push({ id: doc.id, data: doc.data() })
+        })
+        response.send(npcs)
+    } catch (e) {
+        response.send(e)
+    }
+})
+
+app.get('/adminModal', (request, response) => {
+    response.render('adminModal')
 })

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%- include('partials/header.ejs') %>
+
+    <title>Admin Modal</title>
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <button class="btn btn-primary" onclick="test()">Button 1</button>
+        <button class="btn btn-primary">Button 2</button>
+        <button class="btn btn-primary">Button 3</button>
+        <div id="content"></div>
+    </div>
+
+    <!--  -->
+
+
+
+    <!--  -->
+    <%- include('partials/scripts.ejs') %>
+
+</body>
+
+</html>
+
+<script>
+
+    function test(){
+        let parentDiv = window.opener.document.getElementById('testContent')
+        parentDiv.innerHTML = 'manipulated'
+    }
+
+</script>
