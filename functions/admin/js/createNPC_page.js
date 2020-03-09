@@ -10,7 +10,7 @@ function createNPC_page_secured() {
             
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text">NPC Name</label>
+                    <label class="input-group-text">Name</label>
                 </div>
                     <input class="form-control" type="text" id="input_npcName"/>
             </div>
@@ -33,9 +33,9 @@ function createNPC_page_secured() {
 
             <div id="professions" class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="input_profession">Profession</label>
+                    <label class="input-group-text" for="input_npcProfession">Profession</label>
                 </div>
-                    <select class="form-control" id="input_profession">
+                    <select class="form-control" id="input_npcProfession">
                         <option value="" selected>-- Select Profession --</option>
                         <option value="Aristocrat">Aristocrat</option>
                         <option value="Artisan">Artisan</option>
@@ -53,9 +53,9 @@ function createNPC_page_secured() {
 
             <div id="shopList" class="input-group">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="input_shopRef">Shop</label>
+                    <label class="input-group-text" for="input_npcShopRef">Shop</label>
                 </div>
-                    <select class="form-control" id="input_shopRef">
+                    <select class="form-control" id="input_npcShopRef">
                     <option value="" selected disabled hidden>-- Select Shop --</option>
                     <option value="">None</option>
                     </select>
@@ -113,6 +113,7 @@ function createNPC_page_secured() {
             </div>
 
             <button class="btn btn-primary" onclick="randomizeStats()">Randomize Stats</button>
+            <button class="btn btn-primary" onclick="createNPC()">Create NPC</button>
 
         </div>
     `
@@ -148,11 +149,42 @@ function getShopIDs() {
             for (let shop of shops) {
                 shopIDs += `<option value="${shop['id']}">` + shop['id'] + `</option>`
             }
-            let shopReference = document.getElementById('input_shopRef')
+            let shopReference = document.getElementById('input_npcShopRef')
             if (shopReference) {
                 shopReference.innerHTML += shopIDs
             }
         }
     })
+}
+
+async function createNPC() {
+    const npcName = document.getElementById('input_npcName').value
+    const npcID = npcName.replace(/\s|'/g, "")
+    const npcAlignment = document.getElementById('input_npcAlignment').value
+    const npcProfession = document.getElementById('input_npcProfession').value
+    const npcShopID = document.getElementById('input_npcShopRef').value
+    const npcStats = getStats()
+
+    // add npc to firebase
+    try {
+        let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(npcID).get()
+        if (documentReference.exists) {
+            alert('shop already exists')
+        } else {
+            await firebase.firestore().collection(COLLECTION_NPCS).doc(npcID).set({
+                'npcID': npcID,
+                'name': npcName,
+                'alignment': npcAlignment,
+                'profession': npcProfession,
+                'shopID': npcShopID,
+                'stats': npcStats
+            })
+            alert('added npc')
+            itemList = []
+            printedItems.innerHTML = ""
+        }
+    } catch (e) {
+        alert('Error! ' + e)
+    }
 }
 
