@@ -95,7 +95,7 @@ app.get('/shop/:id', async (request, response) => {
     if (shop.data() != null) {
         response.send(
             shop.data()
-            )
+        )
     } else {
         response.send(`
         No shop exists under '${request.params.id}'. Possibly check spelling/capitalization.
@@ -103,16 +103,30 @@ app.get('/shop/:id', async (request, response) => {
     }
 })
 
-app.get('/mob', (request, response) => {
-    var testData = `
-    {
-        "shopID": "MjollsGoods",
-        "data": {
-            "name": "Jeri",
-            "role": "Merchant",
-            "health": "12"
-        }
-    }`
-    obj = JSON.parse(testData)
-    response.send(obj)
+app.get('/npcs', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
+    try {
+        let npcs = await coll.get()
+        const snapshots = await coll.get()
+        snapshots.forEach(doc => {
+            npcs.push({ id: doc.id, data: doc.data() })
+        })
+        response.send(npcs)
+    } catch (e) {
+        response.send(e)
+    }
+})
+
+app.get('/npc/:id', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
+    let npc = await coll.doc(request.params.id).get()
+    if (npc.data() != null) {
+        response.send(
+            npc.data()
+        )
+    } else {
+        response.send(`
+        No npc exists under '${request.params.id}'. Possibly check spelling/capitalization.
+        `)
+    }
 })
