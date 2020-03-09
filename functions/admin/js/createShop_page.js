@@ -2,7 +2,6 @@ function createShop_page() {
     createShop_page_secured()
 }
 
-let shopName
 let itemList = []
 let printedItems = ""
 
@@ -141,12 +140,11 @@ function getSubtypes() {
 
 
 async function createShop() {
-    // !! fix shopID to not have spaces !!
-    shopName = document.getElementById('input_shopName').value
-    shopID = shopName.replace(/\s|'/g,"")
+    const shopName = document.getElementById('input_shopName').value
+    const shopID = shopName.replace(/\s|'/g,"")
     // add shop to firebase
     try {
-        let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopName).get()
+        let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopID).get()
         if (documentReference.exists) {
             alert('shop already exists')
         } else {
