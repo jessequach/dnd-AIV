@@ -89,3 +89,9 @@ p {
 hr {
     width: 90%
 }
+
+.admin-panel {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
