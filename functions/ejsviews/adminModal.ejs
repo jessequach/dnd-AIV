@@ -15,7 +15,7 @@
 
     <div class="jumbotron">
         <button class="btn btn-primary" onclick="test()">Button 1</button>
-        <button class="btn btn-primary">Button 2</button>
+        <button class="btn btn-primary" onclick="opener.hello()">Button 2</button>
         <button class="btn btn-primary">Button 3</button>
         <div id="content"></div>
     </div>
@@ -34,8 +34,8 @@
 <script>
 
     function test(){
-        let parentDiv = window.opener.document.getElementById('testContent')
-        parentDiv.innerHTML = 'manipulated'
+        let parentDiv = window.opener.document.getElementById('npc_0')
+        parentDiv.innerHTML = `${opener.generateNPC('jayridberrimayn')}`
     }
 
 </script>

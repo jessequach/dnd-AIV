@@ -154,11 +154,14 @@
             </div>
         </div>
         <div class="col">
-            - NPC Card Testing -
-            <button id="generateNPC" type="button" onclick="generateNPC()">generateNPC</button>
-            <div id="npc1"></div>
-            <button type="button" onclick="testFn()">test btn</button>
-            <div id="testContent"></div>
+            <button class="admin-panel" type="button" onclick="openAdminPanel()">Admin Panel</button>
+            <div class="row row-cols-3">
+                <% for (let i = 0; i < 5; i++) { %>
+                    <div class="col">
+                        <div id="npc_<%= i %>"></div>
+                    </div>
+                <% } %>
+            </div>
         </div>
     </div>
 
@@ -170,7 +173,11 @@
 
 <script>
 
-    function testFn() {
+    function hello(){
+        console.log('hello')
+    }
+
+    function openAdminPanel() {
         const newWidth = window.innerWidth * 0.3
         const newHeight = window.innerHeight
         var adminModal = window.open(
@@ -213,20 +220,20 @@
         }
         document.getElementById('shop-content').innerHTML = items
     }
-    function createNPCCard(npc) {
+    function createNPCCard(data) {
         let card = `
         <div class="card" style="width: 18rem;">
             <p class="character-desc">
-                ${npc.data.name} <br/>
-                ${npc.data.role} 
+                ${data.name} <br/>
+                ${data.profession} 
             </p>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
-                    HP: ${npc.data.health} / ${npc.data.health}
+                    HP: sample/text
                 </div>
             </div>
             <div class="float-bar-tabs">
-                <button id="${npc.shopID}" type="button" class="btn btn-primary" 
+                <button id="${data.shopID}" type="button" class="btn btn-primary" 
                     data-toggle="modal" data-target="#shop_PLACEHOLDER">
                         <i class="fas fa-book"></i>
                 </button>
@@ -272,15 +279,15 @@
         `
         return modal
     }
-    function generateNPC() {
+    function generateNPC(id) {
         $.ajax({
-            url: 'mob/',
+            url: 'npc/' + id,
             type: 'GET',
             dataType: 'json',
-            success: (npc) => {
-                let npc1 = document.getElementById('npc1')
-                npc1.innerHTML = createNPCCard(npc)
-                generateShop(npc.shopID)
+            success: (data) => {
+                let npc = document.getElementById('npc_0')
+                npc.innerHTML = createNPCCard(data)
+                generateShop(data.shopID)
             }
         })
     }
@@ -290,8 +297,8 @@
             type: 'GET',
             dataType: 'json',
             success: (shop) => {
-                let npc1 = document.getElementById('npc1')
-                npc1.innerHTML += createShopModal(shop)
+                let npc = document.getElementById('npc_0')
+                npc.innerHTML += createShopModal(shop)
             }
         })
     }
