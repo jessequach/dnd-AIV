@@ -145,6 +145,6 @@ app.get('/npcs/:alignment', async (request, response) => {
     }
 })
 
-app.get('/adminModal', (request, response) => {
-    response.render('adminModal')
+app.get('/adminPanel', (request, response) => {
+    response.render('adminPanel')
 })
