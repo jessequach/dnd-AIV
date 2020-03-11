@@ -220,12 +220,12 @@
         }
         document.getElementById('shop-content').innerHTML = items
     }
-    function createNPCCard(data) {
+    function createNPCCard(npc) {
         let card = `
         <div class="card" style="width: 18rem;">
             <p class="character-desc">
-                ${data.name} <br/>
-                ${data.profession} 
+                ${npc.name} <br/>
+                ${npc.profession} 
             </p>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
@@ -233,8 +233,8 @@
                 </div>
             </div>
             <div class="float-bar-tabs">
-                <button id="${data.shopID}" type="button" class="btn btn-primary" 
-                    data-toggle="modal" data-target="#shop_PLACEHOLDER">
+                <button id="${npc.shopID}" type="button" class="btn btn-primary" 
+                    data-toggle="modal" data-target="#shop_${npc.shopID}">
                         <i class="fas fa-book"></i>
                 </button>
             </div>
@@ -245,7 +245,7 @@
     }
     function createShopModal(shop) {
         let modal = `
-        <div class="modal fade" id="shop_PLACEHOLDER" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="shop_${shop.shopID}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -291,6 +291,7 @@
             }
         })
     }
+    
     function generateShop(shopID) {
         $.ajax({
             url: 'shop/' + shopID,
@@ -320,7 +321,7 @@
     /* 
         book related functions
     */
-    let count = $('.card').length;
+    let count = $('.card').length
     for (let i = 0; i < count; i++) {
         $(`#book_${i}`)
             .on('click', `.active`, {
