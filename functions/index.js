@@ -51,7 +51,6 @@ const characterClass = require('./model/characterClass.js')
 const characterFeatures = require('./characterFeatures.js')
 
 app.get('/', async (request, response) => {
-
     let classNames = ['Fighter', 'Monk', 'Rogue', 'Wizard']
     let charToPush
     let classes = []
@@ -68,6 +67,7 @@ app.get('/', async (request, response) => {
         snapshots.forEach(doc => {
             characters.push({ id: doc.id, data: doc.data() })
         })
+        response.cookie("Set-Cookie", "Secure;SameSite=Strict");
         response.render('home', { characters, classes })
     } catch (e) {
         response.send(e)
