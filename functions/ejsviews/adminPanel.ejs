@@ -14,7 +14,16 @@
 <body>
 
     <div class="jumbotron">
-        <button class="btn btn-primary" onclick="callGenerateNPC()">Button 1</button>
+
+        <div class="form-group">
+            <div class="input-group">
+                <button class="btn btn-primary" style="margin-right: 1%" onclick="callGenerateNPC()">Spawn NPC</button>
+                <select class="form-control" id="npcSelector">
+                    <option value="" selected disabled hidden>-- Select NPC --</option>
+                </select>
+            </div>
+        </div>
+
         <button class="btn btn-primary" onclick="opener.hello()">Button 2</button>
         <button class="btn btn-primary">Button 3</button>
         <div id="content"></div>
@@ -33,8 +42,35 @@
 
 <script>
 
+    $(document).ready(function () {
+        getNPCIDs()
+    })
+
+    function getNPCIDs() {
+        $.ajax({
+            url: 'npcs/',
+            type: 'GET',
+            dataType: 'json',
+            success: (npcs) => {
+                let npcIDs = ""
+                for (let npc of npcs) {
+                    npcIDs += `<option value="${npc['id']}">${npc['id']}</option>`
+                }
+                let npcSelector = document.getElementById('npcSelector')
+                if (npcSelector) {
+                    npcSelector.innerHTML += npcIDs
+                }
+            }
+        })
+    }
+
     function callGenerateNPC() {
-        window.opener.generateNPC('jayridberrimayn')
+        let npc = document.getElementById('npcSelector').value
+        if (npc === '') {
+            alert('NPC value has not been chosen.')
+            return
+        }
+        window.opener.generateNPC(npc)
     }
 
 </script>

@@ -18,7 +18,7 @@
             <div class="row row-cols-3" style="justify-content: center;">
                 <% for (let i = 0; i < characters.length; i++) { %>
                 <div class="col">
-                    <div id="card_<%- i %>" class="card" style="width: 16rem;">
+                    <div id="card_<%- i %>" class="card" style="width: 17rem;">
                         <p class="character-desc">
                             <%= characters[i].data.firstName %> <%= characters[i].data.lastName %> <br />
                             <%= characters[i].data.alignment %> <br />
@@ -157,9 +157,9 @@
             <button class="admin-panel" type="button" onclick="openAdminPanel()">Admin Panel</button>
             <div class="row row-cols-3">
                 <% for (let i = 0; i < 5; i++) { %>
-                    <div class="col">
-                        <div id="npc_<%= i %>"></div>
-                    </div>
+                <div class="col">
+                    <div id="npc_<%= i %>"></div>
+                </div>
                 <% } %>
             </div>
         </div>
@@ -172,10 +172,6 @@
 </html>
 
 <script>
-
-    function hello(){
-        console.log('hello')
-    }
 
     function openAdminPanel() {
         const newWidth = window.innerWidth * 0.3
@@ -232,16 +228,73 @@
                     HP: sample/text
                 </div>
             </div>
-            <div class="float-bar-tabs">
-                <button id="${npc.shopID}" type="button" class="btn btn-primary" 
-                    data-toggle="modal" data-target="#shop_${npc.shopID}">
-                        <i class="fas fa-book"></i>
-                </button>
-            </div>
+
             <div class="character-img-parent"><img class="card-img-top" src=" "></div>
+
+            ${addExtraNPCInfo(npc)}
+            
         </div>
         `
         return card
+    }
+    function addExtraNPCInfo(npc) {
+        let stats = ``
+        let skills = ``
+        for (let stat in npc.stats) { stats += `${stat} ${npc.stats[stat]}<br/>` }
+        for (let skill in npc.skills) { skills += `${skill}` }
+        let extraInfo = ``
+        if (npc.alignment === 'Neutral') {
+            if (npc.shopID !== '') {
+                extraInfo += `
+                <div class="float-bar-tabs">
+                    <button id="${npc.shopID}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#shop_${npc.shopID}">
+                        <i class="fas fa-book"></i>
+                    </button>
+                </div>
+                `
+            }
+        }
+        if (npc.alignment === 'Hostile') {
+            extraInfo += `
+            <div class="card-body">
+                <div class="container">
+                    <div class="row" style="text-align: center;">
+                        <div class="col">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#stats_${npc.npcID}"
+                                aria-expanded="false"
+                                aria-controls="stats_${npc.npcID}">
+                                Stats
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#skils_${npc.npcID}"
+                                aria-expanded="false"
+                                aria-controls="skils_${npc.npcID}">
+                                Skills
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div style="text-align: center;" class="collapse"
+                                id="stats_${npc.npcID}">
+                                <p>${stats}</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div style="text-align: center;" class="collapse"
+                                id="skils_${npc.npcID}">
+                                <p>${skills}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+        return extraInfo
     }
     function createShopModal(shop) {
         let modal = `
@@ -279,9 +332,9 @@
         `
         return modal
     }
-    function generateNPC(id) {
+    function generateNPC(npcID) {
         $.ajax({
-            url: 'npc/' + id,
+            url: 'npc/' + npcID,
             type: 'GET',
             dataType: 'json',
             success: (data) => {
@@ -291,7 +344,7 @@
             }
         })
     }
-    
+
     function generateShop(shopID) {
         $.ajax({
             url: 'shop/' + shopID,
