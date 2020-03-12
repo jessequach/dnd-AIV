@@ -221,7 +221,7 @@
         <div class="card" style="width: 18rem;">
             <p class="character-desc">
                 ${npc.name} <br/>
-                ${npc.profession} 
+                ${npc.profession ? npc.profession : ''} 
             </p>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
@@ -241,7 +241,7 @@
         let stats = ``
         let skills = ``
         for (let stat in npc.stats) { stats += `${stat} ${npc.stats[stat]}<br/>` }
-        for (let skill in npc.skills) { skills += `${skill}` }
+        for (let skill of npc.skills) { skills += `${skill}` }
         let extraInfo = ``
         if (npc.alignment === 'Neutral') {
             if (npc.shopID !== '') {
