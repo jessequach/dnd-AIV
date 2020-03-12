@@ -230,6 +230,10 @@ function checkAlignment(){
         $('#hostileOnly').hide()
         $('#input_npcAC').val(0)
         $('#input_npcSpeed').val(0)
+        $('#input_npcActionName').val('')
+        $('#input_npcActionDesc').val('')
+        actionList = []
+        document.getElementById('actionList').innerHTML = ""
     } else {
         $('#neutralOnly').hide()
         $('#hostileOnly').show()
@@ -237,6 +241,7 @@ function checkAlignment(){
         $('#input_npcShopRef').val('')        
     }
 }
+
 
 function randomStat(min, max) {
     return Math.floor(Math.random() * (1 + max - min)) + min
@@ -290,8 +295,8 @@ async function createNPC() {
     const npcAlignment = document.getElementById('input_npcAlignment').value
     const npcProfession = document.getElementById('input_npcProfession').value
     const npcShopID = document.getElementById('input_npcShopRef').value
-    const npcAC = document.getElementById('input_npcAC')
-    const npcSpeed = document.getElementById('input_npcSpeed')
+    const npcAC = document.getElementById('input_npcAC').value
+    const npcSpeed = document.getElementById('input_npcSpeed').value
     const npcStats = getStats()
     const npcSkills = getSkills()
 
@@ -312,20 +317,19 @@ async function createNPC() {
                     'skills': npcSkills,
                 })
             } else { // Add a Hostile NPC
-
+                await firebase.firestore().collection(COLLECTION_NPCS).doc(npcID).set({
+                    'npcID': npcID,
+                    'name': npcName,
+                    'alignment': npcAlignment,
+                    'ac': npcAC,
+                    'speed': npcSpeed,
+                    'stats': npcStats,
+                    'skills': npcSkills,
+                    'actions': actionList,
+                })
             }
-            await firebase.firestore().collection(COLLECTION_NPCS).doc(npcID).set({
-                'npcID': npcID,
-                'name': npcName,
-                'alignment': npcAlignment,
-                'ac': npcAC,
-                'speed': npcSpeed,
-                'stats': npcStats,
-                'skills': npcSkills,
-            })
             alert('added npc')
-            itemList = []
-            printedItems.innerHTML = ""
+            location.reload()   
         }
     } catch (e) {
         alert('Error! ' + e)
