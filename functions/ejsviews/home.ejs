@@ -174,7 +174,7 @@
 <script>
 
     $('.npc').click(function (e) {
-        if ($(e.target).is('.btn') || $(e.target).is('.fas')){
+        if ($(e.target).is('.btn-exit')){
             this.innerHTML = ''
         }
     })
@@ -230,7 +230,9 @@
                 ${npc.profession ? npc.profession : ''} 
             </p>
             <div class="float-bar-exit">
-                <button class="btn"><i class="fas fa-times-circle fa-lg"></i></button>
+                <button class="btn btn-exit">
+                    <i style="pointer-events: none;" class="fas fa-times-circle fa-lg"></i>
+                </button>
             </div>
             <div class="progress">
                 <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
@@ -350,16 +352,16 @@
             success: (data) => {
                 // let npc = document.getElementById('npc_0')
                 // npc.innerHTML = createNPCCard(data)
-                let npc = $('.npc:empty:first')
-                if (npc) {
-                    npc.append(createNPCCard(data))
-                    generateShop(data.shopID)
+                let npcSlot = $('.npc:empty:first')
+                if (npcSlot) {
+                    npcSlot.append(createNPCCard(data))
+                    generateShop(npcSlot, data.shopID)
                 }
             }
         })
     }
 
-    function generateShop(shopID) {
+    function generateShop(npcSlot, shopID) {
         $.ajax({
             url: 'shop/' + shopID,
             type: 'GET',
@@ -367,8 +369,7 @@
             success: (data) => {
                 // let npc = document.getElementById('npc_0')
                 // npc.innerHTML += createShopModal(data)
-                let npc = $('.npc:empty:first')
-                npc.append(createShopModal(data))
+                npcSlot.append(createShopModal(data))
             }
         })
     }
