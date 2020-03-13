@@ -79,11 +79,17 @@ p {
     margin-bottom: -2.5%;
 }
 
-.float-bar-types {
+.float-bar-shopFilter {
     position: absolute;
     top: 0;
     right: 30%;
     margin-top: 7.5%
+}
+
+.float-bar-exit {
+    position: absolute;
+    top: -3%;
+    right: -7%;
 }
 
 hr {
