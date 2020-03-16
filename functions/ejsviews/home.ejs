@@ -134,8 +134,26 @@
                                 <hr />
                             </div>
                             <div class="back" hidden>
-                                <p class="page-title">4444</p>
+                                <p class="page-title">
+                                    <% switch(characters[i].data._class) {
+                                        case "Fighter": %>
+                                            Martial Archetypes
+                                        <% break;
+                                        case "Monk": %>
+                                            -- Monk P4
+                                        <% break;
+                                        case "Rogue": %>
+                                            -- Rogue P4
+                                        <% break;
+                                        case "Wizard": %>
+                                            -- Wizard P4
+                                        <% break;
+                                    } %>
+                                </p>
                                 <hr />
+                                <% for (let subclass in classes[index].subclasses) { %>
+                                    <%- classes[index].subclasses[subclass] %>
+                                <% } %>
                             </div>
                         </div>
                         <div class="page">
@@ -152,9 +170,11 @@
                 </div>
                 <% } %>
             </div>
+            <div class="admin-panel">
+                <button type="button" class="btn btn-primary" onclick="openAdminPanel()">Admin Panel</button>
+            </div>
         </div>
         <div class="col">
-            <button class="admin-panel" type="button" onclick="openAdminPanel()">Admin Panel</button>
             <div class="row row-cols-3">
                 <% for (let i = 0; i < 10; i++) { %>
                 <div class="col">
@@ -174,8 +194,9 @@
 <script>
 
     $('.npc').click(function (e) {
-        if ($(e.target).is('.btn-exit')){
+        if ($(e.target).is('.btn-exit')) {
             this.innerHTML = ''
+            this.classList.remove('active')
         }
     })
 
@@ -187,6 +208,15 @@
             "newWindow",
             `modal=yes, width=${newWidth}, height=${newHeight}`
         )
+    }
+
+    function startCombat() {
+        console.log('combat started')
+        $('.npc.active').each(function(e){
+            console.log(
+                this
+            )
+        })
     }
 
     function defaultShop(items, shop) {
@@ -231,7 +261,7 @@
             </p>
             <div class="float-bar-exit">
                 <button class="btn btn-exit">
-                    <i style="pointer-events: none;" class="fas fa-times-circle fa-lg"></i>
+                    <i style="pointer-events: none; color: white;" class="fas fa-times-circle fa-lg"></i>
                 </button>
             </div>
             <div class="progress">
@@ -354,6 +384,7 @@
                 // npc.innerHTML = createNPCCard(data)
                 let npcSlot = $('.npc:empty:first')
                 if (npcSlot) {
+                    npcSlot.addClass('active')
                     npcSlot.append(createNPCCard(data))
                     generateShop(npcSlot, data.shopID)
                 }
