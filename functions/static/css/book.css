@@ -70,7 +70,7 @@
     transform: rotateY(180deg) scaleX(-1);
 }
 
-.back .page-title, .back .page-subtitle {
+.back .page-title, .back .page-subtitle, .back .page-subclass {
     transform: scaleX(-1)
 }
 
@@ -90,7 +90,7 @@
     height: 100%;
     width: 100%;
     font-family: 'Oswald', sans-serif;
-    text-shadow: 1px 1px black;
+    text-shadow: 2px 1.5px black;
 }
 
 /* .flip {
@@ -127,8 +127,12 @@
     font-style: italic;
 }
 .popover {
-    text-align: center;
     max-width: 30%;
+}
+
+.feature {
+    font-weight: bold;
+    color: azure;
 }
 
 /* Overriding styling on bootstrap classes */
