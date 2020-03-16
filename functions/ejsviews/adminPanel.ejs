@@ -17,15 +17,23 @@
 
         <div class="form-group">
             <div class="input-group">
-                <button class="btn btn-primary" style="margin-right: 1%" onclick="callGenerateNPC()">Spawn NPC</button>
+                <button class="btn btn-primary" style="margin-right: 1%" onclick="generateNPC()">Spawn NPC</button>
                 <select class="form-control" id="npcSelector">
                     <option value="" selected disabled hidden>-- Select NPC --</option>
                 </select>
             </div>
         </div>
-
-        <button class="btn btn-primary" onclick="opener.hello()">Button 2</button>
-        <button class="btn btn-primary">Button 3</button>
+        <div class="form-group">
+            <div class="input-group">
+                <button class="btn btn-primary" style="margin-right: 1%" onclick="generateEncounter()">Spawn Encounter</button>
+                <select class="form-control" id="encounterSelector">
+                    <option value="" selected disabled hidden>-- Select Encounter --</option>
+                    <option>Battle of X</option>
+                    <option>3 Goblins, 1 Orc</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="opener.startCombat()">Start Combat</button>
         <div id="content"></div>
     </div>
 
@@ -64,13 +72,22 @@
         })
     }
 
-    function callGenerateNPC() {
+    function generateNPC() {
         let npc = document.getElementById('npcSelector').value
         if (npc === '') {
             alert('NPC value has not been chosen.')
             return
         }
         window.opener.generateNPC(npc)
+    }
+
+    function generateEncounter(){
+        let encounter = document.getElementById('encounterSelector').value
+        if (encounter === ''){
+            alert('Encounter value has not been chosen.')
+            return
+        }
+        window.opener.generateEncounter(encounter)
     }
 
 </script>
