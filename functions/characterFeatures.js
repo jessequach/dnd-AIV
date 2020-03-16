@@ -9,7 +9,13 @@ module.exports = {
                     `Fighting Style`, `Second Wind`, `Action Surge`, `Martial Archetype`,
                     `Ability Score Improvement`, `Extra Attack`, `Indomitable`,]
                 featureDescriptions = [
-                    `You adopt a particular style of fighting as your specialty. Choose a Fighting Style from the list of optional features. You can’t take the same Fighting Style option more than once, even if you get to choose again.`,
+                    `You adopt a particular style of fighting as your specialty. Choose a Fighting Style from the list of optional features. You can’t take the same Fighting Style option more than once, even if you get to choose again. <br/>
+                        <span class='feature'>Archery</span>: You gain a +2 bonus to attack rolls you make with ranged weapons. <br/>
+                        <span class='feature'>Defense</span>: While you are wearing armor, you gain a +1 bonus to AC. <br/>
+                        <span class='feature'>Dueling</span>: When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon. <br/>
+                        <span class='feature'>Great Weapon Fighting</span>: When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit. <br/>
+                        <span class='feature'>Protection</span>: When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to impose disadvantage on the attack roll. You must be wielding a shield. <br/>
+                        <span class='feature'>Two-Weapon Fighting</span>: When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.`,
                     `You have a limited well of stamina that you can draw on to protect yourself from harm. On Your Turn, you can use a Bonus Action to regain Hit Points equal to 1d10 + your Fighter level. <br/>
                         Once you use this feature, you must finish a short or Long Rest before you can use it again.`,
                     `Starting at 2nd level, you can push yourself beyond your normal limits for a moment. On Your Turn, you can take one additional action on top of your regular action and a possible Bonus Action. <br/>
@@ -41,11 +47,11 @@ module.exports = {
                     `Starting at 2nd level, your Training allows you to harness The Mystic energy of ki. Your access to this energy is represented by a number of ki points. Your monk level determines the number of points you have, as shown in the Ki Points column of the Monk table.
                         You can spend these points to fuel various ki features. You start knowing three such features: <br/><br/>
                         
-                        <span class='bold'>Flurry of Blows</span> <hr/>
+                        <span class='feature'>Flurry of Blows</span> <hr/>
                         Immediately after you take the Attack action on Your Turn, you can spend 1 ki point to make two unarmed strikes as a Bonus Action. <br/><br/>
-                        <span class='bold'>Patient Defense</span> <hr/>
+                        <span class='feature'>Patient Defense</span> <hr/>
                         You can spend 1 ki point to take the Dodge action as a Bonus Action on Your Turn. <br/><br/>
-                        <span class='bold'>Step of the Wind</span> <hr/>
+                        <span class='feature'>Step of the Wind</span> <hr/>
                         You can spend 1 ki point to take the Disengage or Dash action as a Bonus Action on Your Turn, and your jump distance is doubled for the turn. <br/><br/>
                         
                         You learn more ki features as you gain levels in this class. When you spend a ki point, it is unavailable until you finish a short or Long Rest, at the end of which you draw all of your expended ki back into yourself. You must spend at least 30 minutes of the rest meditating to regain your ki points.
@@ -78,7 +84,7 @@ module.exports = {
                 featureNames = [
                     `Expertise`, `Sneak Attack`, `Thieves' Cant`, `Cunning Action`,
                     `Roguish Archetype`, `Ability Score Improvement`, `Uncanny Dodge`, `Evasion`,
-                    `Reliable Talent`, `Blindsense`, `Slippery Mind`,`Elusive`,
+                    `Reliable Talent`, `Blindsense`, `Slippery Mind`, `Elusive`,
                     `Stroke of Luck`,
                 ]
                 featureDescriptions = [
@@ -126,6 +132,50 @@ module.exports = {
 
 
         }
+    },
+    getSubclasses: function (classname) {
+        let subclassNames
+        let subclassDescriptions
+
+        switch (classname) {
+            case "Fighter":
+                subclassNames = ['Elven Archer', 'Samurai']
+                subclassDescriptions = [
+                    `Elven archers have trained with the bow for more than a hundred years before most other races ever engage in their first battle. Their aim is true, and they consider archery an art, as much as it is a tool of war. <br/>
+                        <span class="feature">Elven Archery</span>: At 3rd level, you may spend a bonus action to gain a bonus on one ranged attack roll equal 1/2 your proficiency bonus. <br/>
+                        <span class="feature">Precise Targeting</span>: At 7th level, your attacks are so precise that all of your ranged attacks score a critical hit on a roll of 19-20. <br/>
+                        <span class="feature">Volley</span>: At 10th level, you can use his action to make a ranged attack against any number of targets within a 20 foot cube. You make attacks as normal against each target. <br/>
+                        <span class="feature">Perfect Aim</span>: At 15th level, the elven archer never suffers disadvantage on ranged attack rolls within 30 feet. <br/>
+                        <span class="feature">Deadly Targeting</span>: At 18th level, the elven archer’s ranged attacks score critical hits on 18-20. <br/>
+                    `,
+                    `The samurai is a militaristic servant of a great leader, one who follows a strict code of adherence and is practiced in a number of martial and artistic doctrines. They live their lives by an honorable code, which dictates how they live, fight and die. <br/>
+                        Masters of the art of warfare, they blend the art of combat into a single, deadly function. <br/>
+                        <span class="feature">Way of the Warrior</span>: At 3rd level, the samurai gains proficiency with the katana. He can use longswords and katanas as finesse weapons. Samurai also gain the optional Honor statistic (see the DMG) and must hold loyalty, courage, veracity, compassion and honor as important, above all else. <br/>
+                        In addition, choose one of the following abilities: <br/>
+                            <span class="feature">One Cut</span>. As a bonus action, a samurai wielding a longsword (or katana) can make a single attack with their weapon against two adjacent foes within reach simultaneously. Use the single attack roll and damage against both targets. <br/>
+                            <span class="feature">Mounted Archer</span>. You suffer no penalties for firing ranged weapons from the back of a mount. <br/>
+                            <span class="feature">Courtier</span>. You gain a bonus equal to half of your proficiency bonus on all Insight and Persuasion skill checks. <br/>
+                        <span class="feature"Ki Powers</span>: At 7th level, the samurai has learned to harness his ki, a vast reservoir of inner spiritual strength. <br/>
+                        Choose from one of the following powers: <br/>
+                            <span class="feature">Kiai Strike</span>. You can perform a kiai strike. When doing so, you add your Charisma bonus to attack and damage rolls. <br/>
+                            <span class="feature">Kiai Shout</span>. You can perform a kiai shout. When you do, all enemies that can see and hear you within 30 feet must succeed at a Wisdom save or become frightened of you for a number of rounds equal to your Charisma modifier. <br/>
+                            <span class="feature">Ki Awareness</span>. You may enter a Ki Awareness state as a bonus action. Entering this state allows imposes disadvantage on all attacks against and grants you advantage on Dexterity saves for one round. <br/>
+                        Whichever ability you choose, you can use it once, and you must finish a short or long rest to do so again. At 10th, 15th, and 18th level you can perform that ability one additional time per rest. <br/>
+                        <span class="feature">Death Before Dishonor</span>: At 10th level, the samurai’s code of honor is so strong he is much less likely to succumb to mundane temptations and even magical enchantments find it difficult to ensnare him. You gain proficiency with Wisdom saves. If you are already proficient with Wisdom saves, you instead gain a bonus of half your proficiency bonus to Wisdom saves. <br/>
+                        <span class="feature">Banner</span>: At 15th level, the samurai’s name and banner are symbols of hope and righteousness. This banner serves to inspire and empower those around the samurai to greatness. All allies within 60’ gain +5 temporary hit points and a +1d4 bonus to attack rolls. These benefits last for one hour or as long as the samurai is not reduced to 0 hit points, incapacitated or dead, whichever comes first. <br/>
+                        These bonuses do not stack with other bonuses to attacks or temporary hit points. <br/>
+                        <span class="feature">Deathstroke</span>: At 18th level, whenever the samurai attacks with a shortsword, longsword, katana or bow, his weapons deal critical hits on natural 18s, 19s and 20s. <br/>
+                        <span class="feature">Samurai Code</span>: **The code of the samurai is one of the balancing factors of the archetype. GMs should make sure that characters are living true to their archetype’s nature, and if not, ensure there are consequences.**
+                    `,
+                ]
+                return createSubclasses(subclassNames, subclassDescriptions)
+            case "Monk":
+                break;
+            case "Rogue":
+                break;
+            case "Wizard":
+                break;
+        }
     }
 }
 
@@ -134,10 +184,11 @@ function createFeatures(featureNames, featureDescriptions) {
     featureNames.forEach((value, index) => {
         let featureToAdd = `
             <button 
-                class="feature-name"
+                class="btn btn-primary-outline feature-name"
                 type="button"
                 data-toggle="popover"
                 data-content="${featureDescriptions[index]}"
+                style="color: white; text-shadow: 2px 2px black;"
                 >
                 ${featureNames[index]}
             </button>
@@ -146,4 +197,20 @@ function createFeatures(featureNames, featureDescriptions) {
     })
 
     return features;
+}
+
+function createSubclasses(subclassNames, subclassDescriptions) {
+    let subclasses = []
+    subclassNames.forEach((value, index) => {
+        let subclassToAdd = `
+            <div class="page-subclass page-content">
+                <h2 style="color: white;">${subclassNames[index]}</h2>
+                <p>
+                    ${subclassDescriptions[index]}
+                </p>
+            </div>
+        `
+        subclasses.push(subclassToAdd)
+    })
+    return subclasses;
 }
