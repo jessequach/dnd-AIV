@@ -56,7 +56,7 @@ app.get('/', async (request, response) => {
     let classes = []
 
     for (let i = 0; i < classNames.length; i++) {
-        charToPush = new characterClass(classNames[i], characterFeatures.getFeatures(classNames[i]))
+        charToPush = new characterClass(classNames[i], characterFeatures.getFeatures(classNames[i]), characterFeatures.getSubclasses(classNames[i]))
         classes.push(charToPush)
     }
 
@@ -75,6 +75,27 @@ app.get('/', async (request, response) => {
 
 })
 
+app.get('/adminPanel', (request, response) => {
+    response.render('adminPanel')
+})
+
+app.get('/characters', async (request, response) => {
+    const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
+    try {
+        let characters = []
+        const snapshots = await coll.get()
+        snapshots.forEach(doc => {
+            characters.push({ id: doc.id, data: doc.data() })
+        })
+        response.send(characters)
+    } catch (e) {
+        response.send(e)
+    }
+})
+
+/*
+    GET Shop Functions
+*/
 app.get('/shops', async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
     try {
@@ -103,6 +124,9 @@ app.get('/shop/:id', async (request, response) => {
     }
 })
 
+/*
+    GET NPC Functions
+*/
 app.get('/npcs', async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     try {
@@ -145,6 +169,3 @@ app.get('/npcs/:alignment', async (request, response) => {
     }
 })
 
-app.get('/adminPanel', (request, response) => {
-    response.render('adminPanel')
-})
