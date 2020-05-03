@@ -244,7 +244,7 @@ async function createCharacter() {
     const lastName = document.getElementById('input_lastName').value
     const _class = document.getElementById('input_class').value
     const race = document.getElementById('input_race').value
-    const alignment = document.getElementBdmyId('input_alignment').value
+    const alignment = document.getElementById('input_alignment').value
     const stats = getStats()
     const skills = getSkills()
     const hitdice = getHitDice()

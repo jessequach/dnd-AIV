@@ -63,7 +63,7 @@ const Constants = require('./myconstants.js')
 const characterClass = require('./model/characterClass.js')
 const characterFeatures = require('./characterFeatures.js')
 
-app.get('/', async (request, response) => {
+app.get('/', auth, async (request, response) => {
     const user = firebase.auth().currentUser
 
     let classNames = ['Fighter', 'Monk', 'Rogue', 'Wizard']
@@ -82,15 +82,15 @@ app.get('/', async (request, response) => {
         snapshots.forEach(doc => {
             characters.push({ id: doc.id, data: doc.data() })
         })
-        response.cookie("Set-Cookie", "Secure;SameSite=Strict");
-        response.render('home', { user, characters, classes })
+        response.setHeader('Cache-Control', 'private')
+        response.render('home', { user: request.decodedIdToken, characters, classes })
     } catch (e) {
         response.send(e)
     }
 
 })
 
-app.get('/characters', async (request, response) => {
+app.get('/characters', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_CHARACTERS)
     try {
         let characters = []
@@ -121,19 +121,20 @@ app.post('/signin', async (request, response) => {
     try {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
         const userRecord = await auth.signInWithEmailAndPassword(email, password)
-        await auth.signOut
+        const idToken = await userRecord.user.getIdToken()
+        await auth.signOut()
 
         request.session.idToken = idToken
 
         if (userRecord.user.email === Constants.SYSADMINEMAIL) {
             response.setHeader('Cache-Control', 'private')
-            response.redirect('/admin/sysadmin')
+            response.redirect('/')
         } else {
             response.setHeader('Cache-Control', 'private')
             response.redirect('/')
         }
     } catch (e) {
-        response.render('signin', { error: e })
+        response.render('signin', { error: e, user: null })
     }
 })
 
@@ -150,6 +151,23 @@ app.get('/signout', async (request, response) => {
 })
 
 /*
+    Middleware
+*/
+async function auth(request, response, next) {
+    try {
+        if (request.session && request.session.idToken) {
+            const decodedIdToken = await adminUtil.verifyIdToken(request.session.idToken)
+            request.decodedIdToken = decodedIdToken
+        } else {
+            request.decodedIdToken = null
+        }
+    } catch (e) {
+        request.decodedIdToken = null
+    }
+    next()
+}
+
+/*
     Admin API
 */
 const adminUtil = require('./adminUtil.js')
@@ -161,7 +179,7 @@ app.get('/adminPanel', authSysAdmin, (request, response) => {
     response.render('adminPanel')
 })
 
-function authSysAdmin(request, response, next) {
+async function authSysAdmin(request, response, next) {
     try {
         const decodedIdToken = await adminUtil.verifyIdToken(request.session.idToken)
         if (!decodedIdToken || !decodedIdToken.email || decodedIdToken.email !== Constants.SYSADMINEMAIL) {
@@ -179,7 +197,7 @@ function authSysAdmin(request, response, next) {
 /*
     GET Shop Functions
 */
-app.get('/shops', async (request, response) => {
+app.get('/shops', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
     try {
         let shops = []
@@ -193,7 +211,7 @@ app.get('/shops', async (request, response) => {
     }
 })
 
-app.get('/shop/:id', async (request, response) => {
+app.get('/shop/:id', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
     let shop = await coll.doc(request.params.id).get()
     if (shop.data() != null) {
@@ -210,7 +228,7 @@ app.get('/shop/:id', async (request, response) => {
 /*
     GET NPC Functions
 */
-app.get('/npcs', async (request, response) => {
+app.get('/npcs', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     try {
         let npcs = []
@@ -224,7 +242,7 @@ app.get('/npcs', async (request, response) => {
     }
 })
 
-app.get('/npc/:id', async (request, response) => {
+app.get('/npc/:id', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     let npc = await coll.doc(request.params.id).get()
     if (npc.data() != null) {
@@ -238,7 +256,7 @@ app.get('/npc/:id', async (request, response) => {
     }
 })
 
-app.get('/npcs/:alignment', async (request, response) => {
+app.get('/npcs/:alignment', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     try {
         let npcs = []

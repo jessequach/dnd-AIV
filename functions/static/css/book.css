@@ -3,7 +3,7 @@
 .book-popup {
     position: fixed;
     display: none;
-    z-index: 1;
+    z-index: 2;
     top: 50%;
     left: 50%;
 }
@@ -132,7 +132,6 @@
 
 .feature {
     font-weight: bold;
-    color: azure;
 }
 
 /* Overriding styling on bootstrap classes */

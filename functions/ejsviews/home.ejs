@@ -111,7 +111,7 @@
                                 </div>
 
                                 <hr />
-                                <p class="page-content">- Character Backstory -</p>
+                                <p class="page-content"></p>
                             </div>
                             <div style="overflow: auto;" class="back" hidden>
                                 <p class="page-title">Class Features</p>
@@ -130,40 +130,14 @@
                         </div>
                         <div class="page">
                             <div class="front" hidden>
-                                <p class="page-title">Equipment</p>
-                                <hr />
                             </div>
                             <div class="back" hidden>
-                                <p class="page-title">
-                                    <% switch(characters[i].data._class) {
-                                        case "Fighter": %>
-                                    Martial Archetypes
-                                    <% break;
-                                        case "Monk": %>
-                                    -- Monk P4
-                                    <% break;
-                                        case "Rogue": %>
-                                    -- Rogue P4
-                                    <% break;
-                                        case "Wizard": %>
-                                    -- Wizard P4
-                                    <% break;
-                                    } %>
-                                </p>
-                                <hr />
-                                <% for (let subclass in classes[index].subclasses) { %>
-                                <%- classes[index].subclasses[subclass] %>
-                                <% } %>
                             </div>
                         </div>
                         <div class="page">
                             <div class="front" hidden>
-                                <p class="page-title">55555</p>
-                                <hr />
                             </div>
                             <div class="back" hidden>
-                                <p class="page-title">666666</p>
-                                <hr />
                             </div>
                         </div>
                     </div>
@@ -175,9 +149,9 @@
                 <button type="button" class="btn btn-primary" onclick="signUp()">Sign Up</button>
                 <button id=signedIn value="<%= user %>" type="button" class="btn btn-primary" onclick="signInOut()">
                     <% if(user){ %>
-                        Sign Out
+                    Sign Out
                     <% } else {%>
-                        Sign In 
+                    Sign In
                     <% } %>
                 </button>
             </div>
@@ -214,7 +188,7 @@
 
     function signInOut() {
         let signedIn = document.getElementById('signedIn').value
-        if(signedIn){
+        if (signedIn) {
             window.location.href = "/signout"
         } else {
             window.location.href = "/signIn"
