@@ -137,22 +137,22 @@
                                 <p class="page-title">
                                     <% switch(characters[i].data._class) {
                                         case "Fighter": %>
-                                            Martial Archetypes
-                                        <% break;
+                                    Martial Archetypes
+                                    <% break;
                                         case "Monk": %>
-                                            -- Monk P4
-                                        <% break;
+                                    -- Monk P4
+                                    <% break;
                                         case "Rogue": %>
-                                            -- Rogue P4
-                                        <% break;
+                                    -- Rogue P4
+                                    <% break;
                                         case "Wizard": %>
-                                            -- Wizard P4
-                                        <% break;
+                                    -- Wizard P4
+                                    <% break;
                                     } %>
                                 </p>
                                 <hr />
                                 <% for (let subclass in classes[index].subclasses) { %>
-                                    <%- classes[index].subclasses[subclass] %>
+                                <%- classes[index].subclasses[subclass] %>
                                 <% } %>
                             </div>
                         </div>
@@ -171,7 +171,15 @@
                 <% } %>
             </div>
             <div class="admin-panel">
-                <button type="button" class="btn btn-primary" onclick="openAdminPanel()">Admin Panel</button>
+                <button type="button" class="btn btn-danger" onclick="openAdminPanel()">Admin Panel</button>
+                <button type="button" class="btn btn-primary" onclick="signUp()">Sign Up</button>
+                <button id=signedIn value="<%= user %>" type="button" class="btn btn-primary" onclick="signInOut()">
+                    <% if(user){ %>
+                        Sign Out
+                    <% } else {%>
+                        Sign In 
+                    <% } %>
+                </button>
             </div>
         </div>
         <div class="col">
@@ -200,6 +208,19 @@
         }
     })
 
+    function signUp() {
+        window.location.href = "/signup"
+    }
+
+    function signInOut() {
+        let signedIn = document.getElementById('signedIn').value
+        if(signedIn){
+            window.location.href = "/signout"
+        } else {
+            window.location.href = "/signIn"
+        }
+    }
+
     function openAdminPanel() {
         const newWidth = window.innerWidth * 0.3
         const newHeight = window.innerHeight
@@ -212,7 +233,7 @@
 
     function startCombat() {
         console.log('combat started')
-        $('.npc.active').each(function(e){
+        $('.npc.active').each(function (e) {
             console.log(
                 this
             )
