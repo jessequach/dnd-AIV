@@ -155,7 +155,7 @@ async function createShop() {
             })
             customAlert('success', 'added shop')
             itemList = []
-            printedItems.innerHTML = ""
+            document.getElementById('itemList').innerHTML = ""
         }
     } catch (e) {
         customAlert('danger', 'Error! ' + e)
