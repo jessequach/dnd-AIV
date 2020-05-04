@@ -3,6 +3,7 @@ function createShop_page() {
 }
 
 let itemList = []
+let printedItems
 
 function createShop_page_secured() {
     pageContent.innerHTML = '<h1> Shop Creation </h1>'
@@ -84,7 +85,7 @@ function addItem() {
     document.getElementById('itemForm').reset()
     document.getElementById('input_itemName').focus()
     
-    let printedItems = document.getElementById('itemList')
+    printedItems = document.getElementById('itemList')
     printedItems.innerHTML += `
     <div>
         ${newItem.name},
