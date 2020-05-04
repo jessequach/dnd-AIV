@@ -5,7 +5,7 @@ class characterClass {
         this.subclasses = subclasses
     }
     checkClass(name){
-        return name == name
+        return name === name
     }
 }
 module.exports = characterClass

@@ -20,6 +20,26 @@
 
 <body>
   <h1 class="display-5" style="background-color: blue; color: white;">Admin Page</h1>
+  <div style="display: none" class="alert alert-success" role="alert" id="alertSuccess"></div>
+  <div style="display: none" class="alert alert-danger" role="alert" id="alertDanger"></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/a-character">Create Character</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/a-npc">Create NPC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/a-shop">Create Shop</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div class="jumbotron" id="page_content"></div>
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -64,6 +84,20 @@
       }
     }
 
+    function customAlert(type, message) {
+      const successMsg = document.getElementById('alertSuccess')
+      const dangerMsg = document.getElementById('alertDanger')
+      if (type === 'success') {
+        successMsg.innerHTML = message
+        successMsg.style.display = "block"
+        if (dangerMsg.style.display === "block") dangerMsg.style.display = "none" 
+      } else if (type === 'danger') {
+        dangerMsg.innerHTML = message
+        dangerMsg.style.display = "block"
+        if (successMsg.style.display === "block") successMsg.style.display = "none" 
+      }
+    }
+
   </script>
 
   <!-- Optional JavaScript -->
@@ -77,9 +111,9 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
 
-    <script src="js/createCharacter_page.js"></script>
-    <script src="js/createShop_page.js"></script>
-    <script src="js/createNPC_page.js"></script>
+  <script src="js/createCharacter_page.js"></script>
+  <script src="js/createShop_page.js"></script>
+  <script src="js/createNPC_page.js"></script>
 
 </body>
 

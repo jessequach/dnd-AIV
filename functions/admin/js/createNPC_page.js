@@ -304,7 +304,7 @@ async function createNPC() {
     try {
         let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(npcID).get()
         if (documentReference.exists) {
-            alert('shop already exists')
+            customAlert('danger', 'shop already exists')
         } else {
             if (npcAlignment === 'Neutral'){ // Add a Neutral NPC
                 await firebase.firestore().collection(COLLECTION_NPCS).doc(npcID).set({
@@ -328,11 +328,11 @@ async function createNPC() {
                     'actions': actionList,
                 })
             }
-            alert('added npc')
+            customAlert('success', 'added npc')
             location.reload()   
         }
     } catch (e) {
-        alert('Error! ' + e)
+        customAlert('danger', 'Error! ' + e)
     }
 }
 

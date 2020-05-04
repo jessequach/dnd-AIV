@@ -106,7 +106,7 @@ function changeSubtypes(subtypes) {
 function getSubtypes() {
     let subtypes
     let type = document.getElementById('input_itemType')
-    if (type.value != '') {
+    if (type.value !== "") {
         switch (type.value) {
             case 'Armor':
                 subtypes = ['None', 'Light', 'Medium', 'Heavy', 'Shield']
@@ -145,18 +145,18 @@ async function createShop() {
     try {
         let documentReference = await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopID).get()
         if (documentReference.exists) {
-            alert('shop already exists')
+            customAlert('danger', 'shop already exists')
         } else {
             await firebase.firestore().collection(COLLECTION_SHOPS).doc(shopID).set({
                 'shopID': shopID,
                 'name': shopName,
                 'items': itemList
             })
-            alert('added shop')
+            customAlert('success', 'added shop')
             itemList = []
             printedItems.innerHTML = ""
         }
     } catch (e) {
-        alert('Error! ' + e)
+        customAlert('danger', 'Error! ' + e)
     }
 }

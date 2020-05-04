@@ -214,7 +214,7 @@ app.get('/shops', auth, async (request, response) => {
 app.get('/shop/:id', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_SHOPS)
     let shop = await coll.doc(request.params.id).get()
-    if (shop.data() != null) {
+    if (shop.data()) {
         response.send(
             shop.data()
         )
@@ -245,7 +245,7 @@ app.get('/npcs', auth, async (request, response) => {
 app.get('/npc/:id', auth, async (request, response) => {
     const coll = firebase.firestore().collection(Constants.COLLECTION_NPCS)
     let npc = await coll.doc(request.params.id).get()
-    if (npc.data() != null) {
+    if (npc.data()) {
         response.send(
             npc.data()
         )

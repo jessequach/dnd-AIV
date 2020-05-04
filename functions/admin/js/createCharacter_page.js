@@ -263,10 +263,10 @@ async function createCharacter() {
                 'exp': 0, 'level': 1, hitdice, hp
             })
 
-        alert('added character')
+        customAlert('success', 'added character')
 
     } catch (e) {
-        alert('Error! ' + e)
+        customAlert('danger', 'Error! ' + e)
     }
 
 }
